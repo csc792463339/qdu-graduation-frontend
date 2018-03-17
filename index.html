@@ -1,94 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>做毕设啦啦啦啦啦</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="css/index.css" rel="stylesheet" type="text/css" media="all">
     <link rel="stylesheet" href="lib/weui.min.css">
-    <link rel="stylesheet" href="css/jquery-weui.css">
-    <link rel="stylesheet" href="css/demos.css">
+
 </head>
-<body>
-
-<div class="weui-tab">
-    <div class="weui-tab__bd">
-        <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
-
-            <br/><br/><br/><br/><br/>
-            <div class='demos-content-padded'>
-                <a href="javascript:;" id='show-toast' class="weui-btn weui-btn_primary">做毕设了！！！</a>
-            </div>
-
-            <div class='demos-content-padded'>
-                <a href="html/addUser.html" class="weui-btn weui-btn_primary">test</a>
-            </div>
-        </div>
-        <div id="tab2" class="weui-tab__bd-item">
-            <br/><br/><br/><br/><br/>
-            <a href="javascript:;" id='show-toast-forbidden' class="weui-btn weui-btn_primary">能不做吗？？？</a>
-        </div>
-        <div id="tab3" class="weui-tab__bd-item">
-            <br/><br/><br/><br/><br/>
-            <a href="javascript:;" id='show-loading' class="weui-btn weui-btn_primary">还是做吧...</a>
-
-        </div>
-        <iframe id="tab4" class="weui-tab__bd-item" src="example/demos/index.html" style="width: 100%"></iframe>
-    </div>
-
-    <div class="weui-tabbar">
-        <a href="#tab1" class="weui-tabbar__item weui-bar__item--on">
-            <div class="weui-tabbar__icon">
-                <img src="images/icon_nav_button.png" alt="">
-            </div>
-            <p class="weui-tabbar__label">主页</p>
-        </a>
-        <a href="#tab2" class="weui-tabbar__item">
-            <div class="weui-tabbar__icon">
-                <img src="images/icon_nav_msg.png" alt="">
-            </div>
-            <p class="weui-tabbar__label">任务</p>
-        </a>
-        <a href="#tab3" class="weui-tabbar__item">
-            <div class="weui-tabbar__icon">
-                <img src="images/icon_nav_article.png" alt="">
-            </div>
-            <p class="weui-tabbar__label">发现</p>
-        </a>
-        <a href="#tab4" class="weui-tabbar__item">
-            <div class="weui-tabbar__icon">
-                <img src="images/icon_nav_cell.png" alt="">
-            </div>
-            <p class="weui-tabbar__label">我</p>
-        </a>
-    </div>
+<body id="body">
+<br><br><br><br><br>
+<h1 class="agile-head text-center">QDU</h1>
+<div id="img" class="container-w3" style="height: 60%">
+    <h2>We're Coming soon!</h2>
+    <br><br><br><br>
+    <a href="#" class="weui-btn weui-btn_warn">注 册</a>
+    <br> <br>
+    <a href="#" class="weui-btn weui-btn_primary">登 录</a>
 </div>
 
-<script src="lib/jquery-2.1.4.js"></script>
-<script src="lib/fastclick.js"></script>
-<script>
-    $(function () {
-        FastClick.attach(document.body);
-    });
-</script>
-<script src="js/jquery-weui.js"></script>
-<script>
-    $(document)
-        .on("click", "#show-toast", function () {
-            $.toast("做做做！！！", function () {
-                console.log('close');
-            });
-        })
-        .on("click", "#show-toast-forbidden", function () {
-            $.toast("不能啊！！！", "forbidden");
-        })
-        .on("click", "#show-loading", function () {
-            $.showLoading("doing....");
-            setTimeout(function () {
-                $.hideLoading();
-            }, 5000)
-        });
 
+<script>
+    var height = document.body.clientHeight | window.screen.availHeight;
+    document.getElementById("body").setAttribute("style", "height:" + height + "px");
 </script>
 </body>
 </html>
