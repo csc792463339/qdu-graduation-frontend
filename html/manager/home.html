@@ -5,25 +5,24 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="../lib/weui.min.css">
-    <link rel="stylesheet" href="../css/jquery-weui.css">
-    <link rel="stylesheet" href="../css/demos.css">
+    <link rel="stylesheet" href="../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../css/demos.css">
 </head>
 <body>
+<header class="demos-header">
+    <h1 class="demos-title" id="hader"></h1>
+    <p class="demos-sub-title" id="info"></p>
+</header>
 
 <div class="weui-tab">
     <div class="weui-tab__bd">
         <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
 
-            <div class="photo-container"><img src="../images/swiper-1.jpg"></div>
-
             <div class='demos-content-padded'>
                 <a href="javascript:;" id='show-toast' class="weui-btn weui-btn_primary">做毕设了！！！</a>
             </div>
 
-            <div class='demos-content-padded'>
-                <a href="addUser.html" class="weui-btn weui-btn_primary">test</a>
-            </div>
         </div>
         <div id="tab2" class="weui-tab__bd-item">
             <br/><br/><br/><br/><br/>
@@ -34,45 +33,59 @@
             <a href="javascript:;" id='show-loading' class="weui-btn weui-btn_primary">还是做吧...</a>
 
         </div>
-        <iframe id="tab4" class="weui-tab__bd-item" src="../example/demos/index.html" style="width: 100%"></iframe>
+        <iframe id="tab4" class="weui-tab__bd-item" src="../../example/demos/index.html" style="width: 100%"></iframe>
     </div>
 
     <div class="weui-tabbar">
         <a href="#tab1" class="weui-tabbar__item weui-bar__item--on">
             <div class="weui-tabbar__icon">
-                <img src="../images/icon_nav_button.png" alt="">
+                <img src="../../images/icon_nav_button.png" alt="">
             </div>
             <p class="weui-tabbar__label">主页</p>
         </a>
         <a href="#tab2" class="weui-tabbar__item">
             <div class="weui-tabbar__icon">
-                <img src="../images/icon_nav_msg.png" alt="">
+                <img src="../../images/icon_nav_msg.png" alt="">
             </div>
             <p class="weui-tabbar__label">任务</p>
         </a>
         <a href="#tab3" class="weui-tabbar__item">
             <div class="weui-tabbar__icon">
-                <img src="../images/icon_nav_article.png" alt="">
+                <img src="../../images/icon_nav_article.png" alt="">
             </div>
             <p class="weui-tabbar__label">发现</p>
         </a>
         <a href="#tab4" class="weui-tabbar__item">
             <div class="weui-tabbar__icon">
-                <img src="../images/icon_nav_cell.png" alt="">
+                <img src="../../images/icon_nav_cell.png" alt="">
             </div>
             <p class="weui-tabbar__label">我</p>
         </a>
     </div>
 </div>
 
-<script src="../lib/jquery-2.1.4.js"></script>
-<script src="../lib/fastclick.js"></script>
+<script src="../../lib/jquery-2.1.4.js"></script>
+<script src="../../lib/fastclick.js"></script>
+<script src="../../lib/jquery.cookie.js"></script>
 <script>
     $(function () {
         FastClick.attach(document.body);
     });
 </script>
-<script src="../js/jquery-weui.js"></script>
+<script src="../../js/jquery-weui.js"></script>
+<script>
+    $(document).ready(function () {
+        var name = $.cookie('name');
+        var type = $.cookie('type');
+        var login = $.cookie('login');
+        if (login !== 'true') {
+            $.toast("请先登录！", "weui-toast--forbidden");
+            window.location.href = '../login.html';
+        }
+        $('#hader').text('你好，' + name + " !");
+        $('#info').text('类型:' + type);
+    });
+</script>
 <script>
     $(document)
         .on("click", "#show-toast", function () {
@@ -89,7 +102,6 @@
                 $.hideLoading();
             }, 5000)
         });
-
 </script>
 </body>
 </html>
