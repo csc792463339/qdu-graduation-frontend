@@ -33,7 +33,21 @@
             <a href="javascript:;" id='show-loading' class="weui-btn weui-btn_primary">还是做吧...</a>
 
         </div>
-        <iframe id="tab4" class="weui-tab__bd-item" src="../../example/demos/index.html" style="width: 100%"></iframe>
+        <div id="tab4" class="weui-tab__bd-item">
+            <br/><br/><br/><br/><br/>
+            <div>
+                用户名：<input id="userName">
+            </div>
+            <div>
+                管理班级信息
+                <button onclick="getClassInfo();">获取</button>
+                班级名：<div id="claName"></div>
+                班级人数:<div id="claStuCount"></div>
+            </div>
+            <!--<a href="javascript:;" id='show-userinfo' class="weui-btn weui-btn_primary">还是做吧...</a>-->
+
+        </div>
+        <!--<iframe id="tab4" class="weui-tab__bd-item" src="../../example/demos/index.html" style="width: 100%"></iframe>-->
     </div>
 
     <div class="weui-tabbar">
@@ -67,6 +81,7 @@
 <script src="../../lib/jquery-2.1.4.js"></script>
 <script src="../../lib/fastclick.js"></script>
 <script src="../../lib/jquery.cookie.js"></script>
+<script src="../../lib/config.js"></script>
 <script>
     $(function () {
         FastClick.attach(document.body);
@@ -84,6 +99,7 @@
         }
         $('#hader').text('你好，' + name + " !");
         $('#info').text('类型:' + type);
+        $('#userName').val(name);
     });
 </script>
 <script>
@@ -102,6 +118,22 @@
                 $.hideLoading();
             }, 5000)
         });
+</script>
+<script>
+    function getClassInfo(){
+        var param = "userid=8";
+        var url = config.server + "teacherinfo/";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: param,
+            dataType: 'json',
+            success: function (res) {
+                $("#claName").text(res.claName);
+                $("#claStuCount").text(res.claStudentaccount);
+            }
+        });
+    }
 </script>
 </body>
 </html>
