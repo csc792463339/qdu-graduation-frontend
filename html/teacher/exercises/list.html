@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看习题</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+
+    <link rel="stylesheet" href="../../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../../css/demos.css">
+</head>
+<body>
+查看习题
+<div class="weui-cells" id="questionList">
+
+</div>
+</body>
+<script src="../../../lib/jquery-2.1.4.js"></script>
+<script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/config.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+<script src="../../../js/jquery-weui.js"></script>
+<script>
+    $(function () {
+        getAllExe();
+    })
+
+    function getAllExe() {
+        var url = config.server + "question/list";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'json',
+            success: function (res) {
+                jQuery.each(res.questions,function(key,value){
+                    $("#questionList").append(
+                        '<a class="weui-cell weui-cell_access" href="./detail.html?questionId='+value.questionId+'">' +
+                        '<div class="weui-cell__bd"><p>' +
+                        value.questionId + '.' + value.questionContent +
+                        '</p></div>' +
+                        '<div class="weui-cell__ft">' +
+                        '</div>' +
+                        '</a>'
+                    );
+                })
+            }
+        });
+    }
+</script>
+</html>
