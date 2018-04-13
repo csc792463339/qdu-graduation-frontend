@@ -34,36 +34,16 @@
 
         </div>
         <div id="tab4" class="weui-tab__bd-item">
-            <br/><br/><br/><br/><br/>
-            <div>
-                用户名：<input id="userName">
-            </div>
-            <div>
-                管理班级信息
-                <button onclick="getClassInfo();">获取</button>
-                班级名：<div id="claName"></div>
-                班级人数:<div id="claStuCount"></div>
-            </div>
-            <div>
-
-            </div>
-            <div>
-                <p>插入试题</p>
-                <input value="题目内容">
-                <input value="题目类型">
-                <input value="选项a">
-                <input value="选项b">
-                <input value="选项c">
-                <input value="选项d">
-                <input value="正确选项">
-                <input value="题目分值">
-            </div>
             <!--<a href="javascript:;" id='show-userinfo' class="weui-btn weui-btn_primary">还是做吧...</a>-->
-
         </div>
         <div id="tab5" class="weui-tab__bd-item">
-            <a href="./exercises/add.html" class="weui-btn weui-btn_primary" style="width: 80%">查看题库</a>
-            <a href="javascript:;" class="weui-btn weui-btn_primary" style="width: 80%">添加试题</a>
+            <a href="./exercises/list.html" class="weui-btn weui-btn_primary" style="width: 80%">查看题库</a>
+            <a href="./exercises/addchoice.html" class="weui-btn weui-btn_primary" style="width: 80%">添加选择题</a>
+            <a href="./exercises/addobject.html" class="weui-btn weui-btn_primary" style="width: 80%">添加客观题</a>
+        </div>
+        <div id="tab6" class="weui-tab__bd-item">
+            <a href="./classes/list.html" class="weui-btn weui-btn_primary" style="width: 80%">查看班级</a>
+            <a href="./classes/add.html" class="weui-btn weui-btn_primary" style="width: 80%">添加班级</a>
         </div>
         <!--<iframe id="tab4" class="weui-tab__bd-item" src="../../example/demos/index.html" style="width: 100%"></iframe>-->
     </div>
@@ -97,7 +77,13 @@
             <div class="weui-tabbar__icon">
                 <img src="../../images/icon_nav_cell.png" alt="">
             </div>
-            <p class="weui-tabbar__label">题库管理</p>
+            <p class="weui-tabbar__label">题库</p>
+        </a>
+        <a href="#tab6" class="weui-tabbar__item">
+            <div class="weui-tabbar__icon">
+                <img src="../../images/icon_nav_cell.png" alt="">
+            </div>
+            <p class="weui-tabbar__label">班级</p>
         </a>
     </div>
 </div>
@@ -144,7 +130,7 @@
         });
 </script>
 <script>
-    function getClassInfo(){
+    function getClassInfo() {
         var param = "userid=8";
         var url = config.server + "teacherinfo/";
         $.ajax({

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>查看习题</title>
+    <title>添加班级</title>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,10 +18,27 @@
 <body>
 
 <header class='demos-header'>
-    <h1 class="demos-title">查看试题</h1>
+    <h1 class="demos-title">添加班级</h1>
 </header>
 
-<div class="weui-cells" id="questionList"></div>
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">教师名称：</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入教师姓名" id="teacherName">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">班级名称：</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入班级姓名" id="className">
+        </div>
+    </div>
+</div>
+
+<div class='demos-content-padded'>
+    <a href="javascript:void(0);" class="weui-btn weui-btn_default" onclick="getAllClasses();">添加班级</a>
+</div>
 
 </body>
 <script src="../../../lib/jquery-2.1.4.js"></script>
@@ -34,28 +51,19 @@
 </script>
 <script src="../../../js/jquery-weui.js"></script>
 <script>
-    $(function () {
-        getAllExe();
-    })
-
-    function getAllExe() {
-        var url = config.server + "question/list";
+    function getAllClasses() {
+        var url = config.server + "classes/add";
+        var teacherId = 8;
+        var className = $("#className").val();
+        var teacherName = $("#teacherName").val();
+        var param = "teacherId=" + teacherId + "&className=" + className + "&teacherName=" + teacherName;
         $.ajax({
             type: 'POST',
             url: url,
+            data: param,
             dataType: 'json',
             success: function (res) {
-                jQuery.each(res.questions,function(key,value){
-                    $("#questionList").append(
-                        '<a class="weui-cell weui-cell_access" href="./detail.html?questionId='+value.questionId+'">' +
-                        '<div class="weui-cell__bd"><p>' +
-                        value.questionId + '.' + value.questionContent +
-                        '</p></div>' +
-                        '<div class="weui-cell__ft">' +
-                        '</div>' +
-                        '</a>'
-                    );
-                })
+                alert(res.msg);
             }
         });
     }

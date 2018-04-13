@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>题库增题（客观题）</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+
+    <link rel="stylesheet" href="../../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../../css/demos.css">
+</head>
+<body>
+
+<header class='demos-header'>
+    <h1 class="demos-title">添加习题-客观</h1>
+</header>
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">试题内容:</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入试题内容" id="questionContent">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">试题图片:</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入试题图片地址" id="questionImg">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">试题分值:</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入试题分值" id="questionScore">
+        </div>
+    </div>
+</div>
+
+<div class='demos-content-padded'>
+    <a href="javascript:void(0);" class="weui-btn weui-btn_default" onclick="addQuestion();">添加习题</a>
+</div>
+
+</body>
+<script src="../../../lib/jquery-2.1.4.js"></script>
+<script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/config.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+<script src="../../../js/jquery-weui.js"></script>
+<script>
+    function addQuestion() {
+        //questionType：1为选择题，2位客观题
+        var questionType = 2;
+        var questionContent = $("#questionContent").val();
+        var questionImg = $("#questionImg").val();
+        var questionScore = $("#questionScore").val();
+
+        if (questionContent == null || questionContent == "") {
+            alert("题库内容不能为空");
+            return false;
+        }
+        if (questionScore == null || questionScore == "") {
+            alert("题目分值不能为空");
+            return false;
+        }
+
+        var param = "questionType=" + questionType + "&questionContent=" + questionContent +
+            "&questionImg = " + questionImg + "&questionScore=" + questionScore;
+        var url = config.server + "question/add";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: param,
+            dataType: 'json',
+            success: function (res) {
+                alert(res.msg);
+            }
+        });
+    }
+</script>
+</html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>查看习题</title>
+    <title>查看管理的班级</title>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,10 +18,10 @@
 <body>
 
 <header class='demos-header'>
-    <h1 class="demos-title">查看试题</h1>
+    <h1 class="demos-title">查看班级</h1>
 </header>
 
-<div class="weui-cells" id="questionList"></div>
+<div class="weui-cells" id="classesList"></div>
 
 </body>
 <script src="../../../lib/jquery-2.1.4.js"></script>
@@ -35,21 +35,23 @@
 <script src="../../../js/jquery-weui.js"></script>
 <script>
     $(function () {
-        getAllExe();
+        getAllClasses();
     })
 
-    function getAllExe() {
-        var url = config.server + "question/list";
+    function getAllClasses() {
+        var url = config.server + "classes/list";
+        var param = "teacherId=" + 8;
         $.ajax({
             type: 'POST',
             url: url,
+            data: param,
             dataType: 'json',
             success: function (res) {
-                jQuery.each(res.questions,function(key,value){
-                    $("#questionList").append(
-                        '<a class="weui-cell weui-cell_access" href="./detail.html?questionId='+value.questionId+'">' +
+                jQuery.each(res.classes, function (key, value) {
+                    $("#classesList").append(
+                        '<a class="weui-cell weui-cell_access" href="./detail.html?classId=' + value.classId + '">' +
                         '<div class="weui-cell__bd"><p>' +
-                        value.questionId + '.' + value.questionContent +
+                        value.classId + '.' + value.className + '.' + value.teacherName +
                         '</p></div>' +
                         '<div class="weui-cell__ft">' +
                         '</div>' +

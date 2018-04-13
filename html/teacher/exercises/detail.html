@@ -16,70 +16,75 @@
     <link rel="stylesheet" href="../../../css/demos.css">
 </head>
 <body>
-<div class="weui-cells__title">表单</div>
+<header class='demos-header'>
+    <h1 class="demos-title">试题详情</h1>
+</header>
 <div class="weui-cells weui-cells_form">
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">试题编号:</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="number" placeholder="请输入qq号" readonly="readonly" id="questionId">
+            <input class="weui-input" type="number" placeholder="请输入试题编号" readonly="readonly" id="questionId">
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">试题类型:</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="type" placeholder="请输入qq号" id="questionType">
+            <input class="weui-input" type="type" placeholder="请输入试题类型" id="questionType">
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">试题内容:</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="type" placeholder="请输入qq号" id="questionContent">
+            <input class="weui-input" type="type" placeholder="请输入试题内容" id="questionContent">
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">试题图片:</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="type" placeholder="请输入qq号" id="questionImg">
+            <input class="weui-input" type="type" placeholder="请输入试题图片" id="questionImg">
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">选项A内容:</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="type" placeholder="请输入qq号" id="optionA">
+            <input class="weui-input" type="type" placeholder="请输入选项A内容" id="optionA">
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">选项B内容:</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="type" placeholder="请输入qq号" id="optionB">
+            <input class="weui-input" type="type" placeholder="请输入选项B内容" id="optionB">
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">选项C内容:</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="type" placeholder="请输入qq号" id="optionC">
+            <input class="weui-input" type="type" placeholder="请输入选项C内容" id="optionC">
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">选项D内容:</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="type" placeholder="请输入qq号" id="optionD">
+            <input class="weui-input" type="type" placeholder="请输入选项D内容" id="optionD">
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">正确选项:</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="type" placeholder="请输入qq号" id="correctOption">
+            <input class="weui-input" type="type" placeholder="请输入正确选项" id="correctOption">
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">试题分值:</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="number" placeholder="请输入qq号" id="questionScore">
+            <input class="weui-input" type="number" placeholder="请输入试题分值" id="questionScore">
         </div>
     </div>
 </div>
-<div class="weui-cells__tips">底部说明文字底部说明文字</div>
+
+<div class='demos-content-padded'>
+    <a href="javascript:;" class="weui-btn weui-btn_warn">删除本试题</a>
+</div>
 </body>
 <script src="../../../lib/jquery-2.1.4.js"></script>
 <script src="../../../lib/fastclick.js"></script>
@@ -91,9 +96,9 @@
 </script>
 <script src="../../../js/jquery-weui.js"></script>
 <script>
-    $(function(){
+    $(function () {
         var qId = getUrlParam('questionId');
-        var param = "questionId="+qId;
+        var param = "questionId=" + qId;
         var url = config.server + "question/detail";
         $.ajax({
             type: 'POST',
@@ -111,6 +116,13 @@
                 $("#optionD").val(res.question.optionD);
                 $("#correctOption").val(res.question.correctOption);
                 $("#questionScore").val(res.question.questionScore);
+                if (res.question.questionType == 2) {
+                    $("#optionA").parent().parent().hide();
+                    $("#optionB").parent().parent().hide();
+                    $("#optionC").parent().parent().hide();
+                    $("#optionD").parent().parent().hide();
+                    $("#correctOption").parent().parent().hide();
+                }
             }
         });
     })
@@ -119,7 +131,8 @@
     function getUrlParam(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
         var r = window.location.search.substr(1).match(reg);  //匹配目标参数
-        if (r != null) return unescape(r[2]); return null; //返回参数值
+        if (r != null) return unescape(r[2]);
+        return null; //返回参数值
     }
 </script>
 </html>
