@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="../lib/weui.min.css">
-    <link rel="stylesheet" href="../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../css/jquery-weui.css">
 </head>
 <body ontouchstart>
 <br><br>
@@ -19,7 +19,7 @@
     <div class="weui-msg__opr-area">
         <p class="weui-btn-area">
             <a href="home.html" class="weui-btn weui-btn_primary" id="a1"></a>
-            <a href="../index.html" class="weui-btn weui-btn_default" id="a2"></a>
+            <a href="../../index.html" class="weui-btn weui-btn_default" id="a2"></a>
         </p>
     </div>
     <div class="weui-msg__extra-area">
@@ -31,14 +31,14 @@
         </div>
     </div>
 </div>
-<script src="../lib/jquery-2.1.4.js"></script>
-<script src="../lib/fastclick.js"></script>
+<script src="../../lib/jquery-2.1.4.js"></script>
+<script src="../../lib/fastclick.js"></script>
 <script>
     $(function () {
         FastClick.attach(document.body);
     });
 </script>
-<script src="../js/jquery-weui.js"></script>
+<script src="../../js/jquery-weui.js"></script>
 <script>
     function getQueryVariable(variable) {
         var query = window.location.search.substring(1);
@@ -57,14 +57,14 @@
         $('#title').text("注册成功！");
         $('#desc').text("恭喜您注册成功，欢迎加入！");
         $('#a1').text("进行登录");
-        $('#a1').attr("href", "home.html");
+        $('#a1').attr("href", "login.html");
         $('#a2').text("返回首页");
         $('#a1').attr("href", "../index.html");
     } else if (type == 'regteacher') {
         $('#title').text("提交成功！");
         $('#desc').text("您的申请已提交管理员，我们会尽快审核，请您耐心等待！");
         // $('#a1').text("进行登录");
-        $('#a1').attr("href", "home.html");
+        $('#a1').attr("href", "login.html");
         $('#a2').text("返回首页");
         $('#a1').attr("href", "../index.html");
     }

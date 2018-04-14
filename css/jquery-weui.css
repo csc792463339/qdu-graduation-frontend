@@ -2339,7 +2339,7 @@ button.swiper-pagination-bullet {
   color: #5f646e;
 }
 .weui-panel .weui-media-box__title-after {
-  color: #9b9b9b;
-  font-size: .65rem;
+  color: #FF3030;
+  font-size: .85rem;
   float: right;
 }

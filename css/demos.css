@@ -42,3 +42,14 @@ footer a {
   color: #999;
   text-decoration: none;
 }
+
+#addMessage {
+  bottom: 30px;
+  right: 16px;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+  text-align: right;
+  _position: absolute;
+  float: right;
+}
