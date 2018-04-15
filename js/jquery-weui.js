@@ -3384,7 +3384,7 @@ if (typeof define === 'function' && define.amd) {
     }
 
     var modal = $.modal({
-      text: '<p class="weui-prompt-text">'+(config.text || '')+'</p><input type="text" class="weui-input weui-prompt-input" id="weui-prompt-input" value="' + (config.input || '') + '" />',
+      text: '<p class="weui-prompt-text">'+(config.text || '')+'</p><textarea class="weui-input weui-prompt-input" id="weui-prompt-input"  style="margin: 10px 0px 0px; width: 220px; height: 80px;" value="' + (config.input || '') + '" ></textarea>',
       title: config.title,
       autoClose: false,
       buttons: [

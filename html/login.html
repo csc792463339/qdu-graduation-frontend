@@ -74,6 +74,7 @@
                 if (res.code.toString().charAt(0) == "2") {
                     $.toast("登录成功");
                     $.cookie('login', 'true', {expires: 7, path: '/'});
+                    $.cookie('id', res.id, {expires: 7, path: '/'});
                     $.cookie('name', res.name, {expires: 7, path: '/'});
                     $.cookie('phone', res.phone, {expires: 7, path: '/'});
                     $.cookie('type', res.type, {expires: 7, path: '/'});

@@ -2,19 +2,19 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>学生信息</title>
+    <title>教师信息</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link href="../../lib/bootstrap.min.css" rel="stylesheet">
-    <link href="../../lib/bootstrap-table.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../lib/weui.min.css">
-    <link rel="stylesheet" href="../../css/jquery-weui.css">
-    <link rel="stylesheet" href="../../css/demos.css">
+    <link href="../../../lib/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../lib/bootstrap-table.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../../css/demos.css">
 </head>
 <body>
 <header class='demos-header'>
-    <h1 class="demos-title">学生信息</h1>
+    <h1 class="demos-title">教师信息</h1>
 </header>
 
 <label class="weui-agree" style="float: right"><span class="weui-agree__text"
@@ -34,28 +34,28 @@
 <div class="weui-flex">
     <div class="weui-flex__item">
         <div class="weui-btn-area">
-            <a href="#" class="weui-btn weui-btn_warn">注销学生</a>
+            <a href="#" class="weui-btn weui-btn_warn">注销老师</a>
         </div>
     </div>
     <div class="weui-flex__item">
         <div class="weui-btn-area">
-            <a href="home.html" class="weui-btn weui-btn_primary">返回</a>
+            <a href="../home.html" class="weui-btn weui-btn_primary">返回</a>
         </div>
     </div>
 </div>
 
 </body>
-<script src="../../lib/jquery-2.1.4.js"></script>
-<script src="../../lib/fastclick.js"></script>
-<script src="../../lib/config.js"></script>
-<script src="../../js/jquery-weui.js"></script>
-<script src="../../js/bootstrap-table.min.js"></script>
+<script src="../../../lib/jquery-2.1.4.js"></script>
+<script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/config.js"></script>
+<script src="../../../js/jquery-weui.js"></script>
+<script src="../../../js/bootstrap-table.min.js"></script>
 <script>
     $(function () {
         FastClick.attach(document.body);
     });
 
-    var url = config.server + "manager/studentInfo";
+    var url = config.server + "manager/teacherInfo";
     $().ready(function () {
         $.ajax({
             type: 'GET',
@@ -75,7 +75,7 @@
                     content = content + node;
                 }
                 $('#tbody').html(content);
-                $('#teacherCount').text("当前学生数量 " + res.length + " 人");
+                $('#teacherCount').text("当前教师数量 " + res.length + " 人");
             }
         });
     })

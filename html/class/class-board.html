@@ -25,30 +25,12 @@
 <div class="weui-cells weui-cells_form">
     <div class="weui-panel weui-panel_access">
         <div class="weui-panel__bd">
-            <a class="weui-media-box weui-media-box_appmsg" id="123" type="3">
-                <div class="weui-media-box__bd">
-                    <p>
-                        小李明天早上帮我带两个包子，一个猪肉粉丝和一个奶黄包 小李明天早上帮我带两个包子，一个猪肉粉丝和一个奶黄包 小李明天早上帮我带两个包子，一个猪肉粉丝和一个奶黄包
-                        小李明天早上帮我带两个包子，一个猪肉粉丝和一个奶黄包
-                        <span class="weui-media-box__title-after">❤ 123</span>
-                    </p>
-                    <p class="weui-media-box__desc">杨杰 &nbsp;2018-04-15 08:12</p>
-                </div>
-            </a>
-            <a class="weui-media-box weui-media-box_appmsg">
-                <div class="weui-media-box__bd">
-                    <p>
-                        有个叫杨杰的学长好帅啊啊啊，跪求联系方式！！！
-                        <span class="weui-media-box__title-after">❤ 666</span>
-                    </p>
-                    <p class="weui-media-box__desc">小学妹 &nbsp;2018-04-15 08:12</p>
-                </div>
-            </a>
+
         </div>
     </div>
 
     <div id="addMessage" style="display: block;">
-        <a href="#">
+        <a href="javascript:;" id='show-prompt'>
             <img height="60" width="60" src="../../images/msg.png">
         </a>
     </div>
@@ -61,7 +43,7 @@
 <script src="../../lib/fastclick.js"></script>
 <script src="../../js/jquery-weui.js"></script>
 <script src="../../lib/config.js"></script>
-<script src="../../lib/md5.js"></script>
+<script src="../../lib/jquery.cookie.js"></script>
 <script>
     $(document.body).pullToRefresh(function () {
         setTimeout(function () {
@@ -128,7 +110,6 @@
     }
 
 
-
     function createMsgList(nodes) {
         var all = "";
         for (var i = 0, l = nodes.length; i < l; i++) {
@@ -152,6 +133,33 @@
             dataType: 'json'
         });
     }
+
+    $("")
+    $(document).on("click", "#show-prompt", function () {
+        $.prompt({
+            title: "留言",
+            onOK: function (text) {
+                var userId = $.cookie('id');
+                var classId = GetQueryString("classId");
+                var param = "userId=" + userId + "&classId=" + classId + "&content=" + text;
+                var url = config.server + "class/addBoardMessage";
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: param,
+                    dataType: 'json',
+                    success: function (res) {
+                        $.toptip(res.msg);
+
+                    }
+                });
+                window.location.reload()
+            },
+            onCancel: function () {
+            },
+        });
+    });
 </script>
 </body>
 </html>
+

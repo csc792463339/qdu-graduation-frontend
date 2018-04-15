@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>选择班级</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="../../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../../css/demos.css">
+</head>
+<body>
+
+<div class="weui-tab__bd-item">
+    <header class="demos-header">
+        <h1 class="demos-title">选择班级</h1>
+    </header>
+
+    <div id="tab"></div>
+</div>
+
+
+</body>
+<script src="../../../lib/jquery-2.1.4.js"></script>
+<script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/config.js"></script>
+<script src="../../../js/jquery-weui.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+
+    var url = config.server + "manager/classInfo";
+    $().ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            success: function (res) {
+                window.console.log(res[0].userName);
+                var content = "";
+                for (var i = 0; i < res.length; i++) {
+                    var node = "<a href=\"../../class/class-board.html?classId=" + res[i].classId + "\" class=\"weui-grid js_grid\">\n" +
+                        "<div class=\"weui-grid__icon\">\n" +
+                        "<img src=\"../../../images/icon_nav_button.png\">\n" +
+                        "</div>\n" +
+                        "<p class=\"weui-grid__label\">\n" +
+                        res[i].className +
+                        "</p>\n" +
+                        "</a>"
+                    content = content + node;
+                }
+                $('#tab').html(content);
+            }
+        });
+    })
+</script>
+</html>
