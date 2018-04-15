@@ -115,8 +115,10 @@
 
 
     function createMsgList(nodes) {
+        if (nodes.length < 1) {
+            return;
+        }
         var all = "";
-
         for (var i = 0, l = nodes.length; i < l; i++) {
             var node = "<a class=\"weui-media-box weui-media-box_appmsg\" id=\"" + nodes[i]['id'] + "\" " + ">" +
                 "<div class=\"weui-media-box__bd\"><p>" + nodes[i]['content'] +
@@ -144,10 +146,10 @@
         $.prompt({
             title: "留言",
             onOK: function (text) {
-                var userId = $.cookie('id');
+                var userName = $.cookie('name');
                 var classId = GetQueryString("classId");
-                var param = "userId=" + userId + "&classId=" + classId + "&content=" + text;
-                var url = config.server + "class/addBoardMessage";
+                var param = "classId=" + classId + "&content=" + text + "&userName=" + userName;
+                var url = config.server + "classes/insertBoardMessage";
                 $.ajax({
                     type: 'POST',
                     url: url,
