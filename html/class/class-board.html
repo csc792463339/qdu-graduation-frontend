@@ -26,6 +26,10 @@
     <div class="weui-panel weui-panel_access">
         <div class="weui-panel__bd">
 
+            <div class="weui-loadmore weui-loadmore_line">
+                <span class="weui-loadmore__tips">留言板是空的！快去留言吧~</span>
+            </div>
+
         </div>
     </div>
 
@@ -80,7 +84,7 @@
     $().ready(function () {
         var classId = GetQueryString("classId");
         if (classId == null) {
-            $.toptip("Error!");
+            $.toptip("未获取到班级ID!");
             return;
         }
         var param = "classId=" + classId;
@@ -112,6 +116,7 @@
 
     function createMsgList(nodes) {
         var all = "";
+
         for (var i = 0, l = nodes.length; i < l; i++) {
             var node = "<a class=\"weui-media-box weui-media-box_appmsg\" id=\"" + nodes[i]['id'] + "\" " + ">" +
                 "<div class=\"weui-media-box__bd\"><p>" + nodes[i]['content'] +
@@ -150,12 +155,9 @@
                     dataType: 'json',
                     success: function (res) {
                         $.toptip(res.msg);
-
                     }
                 });
                 window.location.reload()
-            },
-            onCancel: function () {
             },
         });
     });
