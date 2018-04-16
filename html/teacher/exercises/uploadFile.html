@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>文件上传</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="../../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../../css/demos.css">
+</head>
+
+<body ontouchstart>
+<header class='demos-header'>
+    <h1 class="demos-title">文件上传</h1>
+</header>
+
+
+<div class="weui-cells weui-cells_form">
+    <form method="post" id="uploadForm" action="uploadImage.html" enctype="multipart/form-data">
+        <div style="width: auto;float: left;text-align: center" id="fileArea" hidden>
+            <img src="../../../images/paper.jpg">
+            <h3 id="filename"></h3>
+            <br>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <div class="weui-uploader__bd">
+                    <ul class="weui-uploader__files">
+                    </ul>
+                    <div class="weui-uploader__input-box img1">
+                        <input name="file" id="uploaderInput" class="weui-uploader__input js_file" type="file" multiple>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="weui-btn-area"><input type="submit" class="weui-btn weui-btn_primary" value="上传"></div>
+    </form>
+</div>
+
+
+</body>
+<script src="../../../lib/jquery-2.1.4.js"></script>
+<script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/config.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+    var form = document.getElementsByTagName("form")[0];
+    form.action = config.server + "file/uploadfile";
+
+    $(function () {
+        $('.js_file').on('change', function (event) {
+            var files = event.target.files;
+            // 如果没有选中文件，直接返回
+            if (files.length === 0) {
+                return;
+            }
+            var file = files[0];
+            var reader = new FileReader();
+            $('#filename').text(file.name);
+            $('#fileArea').show();
+            $('.weui-cell').hide();
+            reader.readAsDataURL(file);
+        })
+    });
+
+</script>
+<script src="../../../js/jquery-weui.js"></script>
+</body>
+</html>
