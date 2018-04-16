@@ -15,6 +15,7 @@
     <h1 class="demos-title">Uploader</h1>
 </header>
 
+
 <div class="weui-cells weui-cells_form">
     <form method="post" id="uploadForm" action="uploadImage.html" enctype="multipart/form-data">
         <div class="weui-cell">
@@ -45,7 +46,7 @@
     });
 
     function upload() {
-        var url = config.server + "upload/img";
+        var url = config.server + "file/uploadimg";
         var formData = new FormData($("#uploadForm")[0]);
         $.ajax({
             type: "POST",
