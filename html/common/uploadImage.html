@@ -61,8 +61,6 @@
     $(function () {
         // 允许上传的图片类型
         var allowTypes = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
-        // 1024KB，也就是 1MB
-        var maxSize = 1024 * 1024;
         // 图片最大宽度
         var maxWidth = 300;
         // 最大上传图片数量
@@ -80,12 +78,6 @@
                 if (allowTypes.indexOf(file.type) === -1) {
                     $.weui.alert({
                         text: '该类型不允许上传'
-                    });
-                    continue;
-                }
-                if (file.size > maxSize) {
-                    $.weui.alert({
-                        text: '图片太大，不允许上传'
                     });
                     continue;
                 }
