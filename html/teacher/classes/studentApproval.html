@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生申请-审批</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" href="../../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../../css/demos.css">
+</head>
+<body>
+
+<header class='demos-header'>
+    <h1 class="demos-title">学生申请</h1>
+</header>
+<div id="studentApproval">
+    <br/><br/><br/><br/>
+    <div class="weui-flex__item">
+        <div class="weui-btn-area">
+            <a href="../home.html" class="weui-btn weui-btn_primary">返回</a>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../../../lib/jquery-2.1.4.js"></script>
+<script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/config.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+<script src="../../../js/jquery-weui.js"></script>
+<script>
+    url = config.server + "student/approvalList";
+    $().ready(function () {
+        var content = "<div class=\"weui-cells weui-cells_form\">\n" +
+            "        <div class=\"weui-cell\">\n" +
+            "            <div class=\"weui-cell__hd\"><label class=\"weui-label\">姓名</label></div>\n" +
+            "            <div class=\"weui-cell__bd\">\n" +
+            "                <input class=\"weui-input\" value=\"" + "ccc" + "\" disabled>\n" +
+            "            </div>\n" +
+            "        </div>\n" +
+            "        <div class=\"weui-cell\">\n" +
+            "            <div class=\"weui-cell__hd\"><label class=\"weui-label\">手机</label></div>\n" +
+            "            <div class=\"weui-cell__bd\">\n" +
+            "                <input class=\"weui-input\" value=\"" + 1560000 + "\" disabled>\n" +
+            "            </div>\n" +
+            "        </div>\n" +
+            "        <div class=\"weui-cell\">\n" +
+            "            <div class=\"weui-cell__hd\"><label class=\"weui-label\">申请班级</label></div>\n" +
+            "            <div class=\"weui-cell__bd\">\n" +
+            "                <input class=\"weui-input\" value=\"" + "java01" + "\" disabled>\n" +
+            "            </div>\n" +
+            "        </div>\n" +
+            "        <div class=\"weui-cell\">\n" +
+            "            <div class=\"weui-cell__hd\"><label class=\"weui-label\">申请时间</label></div>\n" +
+            "            <div class=\"weui-cell__bd\">\n" +
+            "                <input class=\"weui-input\" value=\"" + "2018-01-04 22:33:22" + "\" disabled>\n" +
+            "            </div>\n" +
+            "        </div>\n" +
+            "\n" +
+            "        <label class=\"weui-agree\">\n" +
+            "        <span class=\"weui-agree__text\">剩余 " + 33 + " 个</a>\n" +
+            "      </span>\n" +
+            "        </label>\n" +
+            "\n" +
+            "        <div class=\"weui-flex\">\n" +
+            "            <div class=\"weui-flex__item\">\n" +
+            "                <div class=\"weui-btn-area\">\n" +
+            "                    <a class=\"weui-btn weui-btn_warn\" onclick=\"reject\">拒绝</a>\n" +
+            "                </div>\n" +
+            "            </div>\n" +
+            "            <div class=\"weui-flex__item\">\n" +
+            "                <div class=\"weui-btn-area\">\n" +
+            "                    <a class=\"weui-btn weui-btn_primary\" onclick=\"approval\">通过</a>\n" +
+            "                </div>\n" +
+            "            </div>\n" +
+            "        </div>\n" +
+            "    </div>";
+
+        $('#studentApproval').html(content);
+
+
+        // $.ajax({
+        //     type: 'GET',
+        //     url: url,
+        //     dataType: 'json',
+        //     success: function (res) {
+        //         if (res.length > 0) {
+        //             var obj = JSON.parse(res[0]);
+        //             var content = "<div class=\"weui-cells weui-cells_form\">\n" +
+        //                 "        <div class=\"weui-cell\">\n" +
+        //                 "            <div class=\"weui-cell__hd\"><label class=\"weui-label\">姓名</label></div>\n" +
+        //                 "            <div class=\"weui-cell__bd\">\n" +
+        //                 "                <input class=\"weui-input\" value=\"" + obj.userName + "\" disabled>\n" +
+        //                 "            </div>\n" +
+        //                 "        </div>\n" +
+        //                 "        <div class=\"weui-cell\">\n" +
+        //                 "            <div class=\"weui-cell__hd\"><label class=\"weui-label\">手机</label></div>\n" +
+        //                 "            <div class=\"weui-cell__bd\">\n" +
+        //                 "                <input class=\"weui-input\" value=\"" + obj.userPhone + "\" disabled>\n" +
+        //                 "            </div>\n" +
+        //                 "        </div>\n" +
+        //                 "        <div class=\"weui-cell\">\n" +
+        //                 "            <div class=\"weui-cell__hd\"><label class=\"weui-label\">申请时间</label></div>\n" +
+        //                 "            <div class=\"weui-cell__bd\">\n" +
+        //                 "                <input class=\"weui-input\" value=\"" + fmtDate(obj.createTime) + "\" disabled>\n" +
+        //                 "            </div>\n" +
+        //                 "        </div>\n" +
+        //                 "\n" +
+        //                 "        <label class=\"weui-agree\">\n" +
+        //                 "        <span class=\"weui-agree__text\">剩余 " + res.length + " 个</a>\n" +
+        //                 "      </span>\n" +
+        //                 "        </label>\n" +
+        //                 "\n" +
+        //                 "        <div class=\"weui-flex\">\n" +
+        //                 "            <div class=\"weui-flex__item\">\n" +
+        //                 "                <div class=\"weui-btn-area\">\n" +
+        //                 "                    <a class=\"weui-btn weui-btn_warn\" onclick=\"reject(" + obj.userPhone + ")\">拒绝</a>\n" +
+        //                 "                </div>\n" +
+        //                 "            </div>\n" +
+        //                 "            <div class=\"weui-flex__item\">\n" +
+        //                 "                <div class=\"weui-btn-area\">\n" +
+        //                 "                    <a class=\"weui-btn weui-btn_primary\" onclick=\"approval(" + obj.userPhone + ")\">通过</a>\n" +
+        //                 "                </div>\n" +
+        //                 "            </div>\n" +
+        //                 "        </div>\n" +
+        //                 "    </div>";
+        //
+        //             $('#studentApproval').html(content);
+        //         } else {
+        //             var content = "<div class=\"demos-header\">\n" +
+        //                 "      <h2 class=\"demos-second-title\">当前没有学生申请!</h2>\n" +
+        //                 "    </div>"
+        //             $('.demos-title').text("当前没有学生申请");
+        //         }
+        //     }
+        // });
+    });
+
+    function approval(phone) {
+        var url = config.server + "manager/approval";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: "phone=" + phone,
+            dataType: 'json',
+            success: function (res) {
+                $.toast(res.msg, function () {
+                    window.location.reload()
+                });
+
+            }
+        });
+    }
+
+    function reject(phone) {
+        var url = config.server + "manager/reject";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: "phone=" + phone,
+            dataType: 'json',
+            success: function (res) {
+                $.toast(res.msg, function () {
+                    window.location.reload()
+                });
+            }
+        });
+    }
+</script>
+</html>

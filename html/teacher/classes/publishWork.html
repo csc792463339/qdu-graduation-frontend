@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发布作业</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="../../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../../css/demos.css">
+</head>
+<body>
+
+<header class='demos-header'>
+    <h1 class="demos-title">发布作业</h1>
+</header>
+
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">选择习题集</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" id="job" type="text" value="">
+        </div>
+    </div>
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">选择班级</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" id="in" type="text" value="">
+        </div>
+    </div>
+</div>
+
+<div class='demos-content-padded'>
+    <a href="javascript:void(0);" class="weui-btn weui-btn_primary" onclick="distributeQuestion();">确定</a>
+</div>
+<script src="../../../lib/jquery-2.1.4.js"></script>
+<script src="../../../lib/fastclick.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+<script src="../../../js/jquery-weui.js"></script>
+
+
+<script>
+    $("#job").select({
+        title: "选择习题集",
+        items: ["练习01", "练习02", "练习03", "练习04", "练习05"],
+        onChange: function (d) {
+            console.log(this, d);
+        },
+        onClose: function () {
+            console.log("close");
+        },
+        onOpen: function () {
+            console.log("open");
+        },
+    });
+
+    $("#in").select({
+        title: "选择班级",
+        multi: true,
+        min: 1,
+        max: 6,
+        items: [
+            {
+                title: "java01",
+                value: 1,
+            },
+            {
+                title: "java02",
+                value: 2,
+            },
+            {
+                title: "java03",
+                value: 3,
+            },
+            {
+                title: "java04",
+                value: 4,
+            },
+            {
+                title: "java05",
+                value: 5,
+            },
+            {
+                title: "java06",
+                value: 6,
+            },
+        ],
+        onChange: function (d) {
+            console.log(this, d);
+        },
+        onClose: function (d) {
+            console.log('close')
+        }
+    });
+</script>
+</body>
+</html>
