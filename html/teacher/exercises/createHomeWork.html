@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>创建习题集</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="../../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../../css/demos.css">
+</head>
+<body>
+
+<header class='demos-header'>
+    <h1 class="demos-title">创建习题集</h1>
+</header>
+
+<div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">名称</label></div>
+    <div class="weui-cell__bd">
+        <input class="weui-input" type="text" placeholder="请输入习题集名称">
+    </div>
+</div>
+
+<div class="weui-cells" id="questionList"></div>
+
+<div class="weui-cells__title">请勾选习题</div>
+
+<div class="weui-cells weui-cells_checkbox" id="questioncheckbox"></div>
+
+<div class='demos-content-padded'>
+    <a href="javascript:void(0);" class="weui-btn weui-btn_primary" onclick="distributeQuestion();">确定</a>
+</div>
+
+</body>
+<script src="../../../lib/jquery-2.1.4.js"></script>
+<script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/config.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+<script src="../../../js/jquery-weui.js"></script>
+<script>
+    $(function () {
+        getAllExe();
+    })
+
+    function getAllExe() {
+        var url = config.server + "question/list";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'json',
+            success: function (res) {
+                jQuery.each(res.questions, function (key, value) {
+                    $("#questioncheckbox").append(
+                        '<label class="weui-cell weui-check__label" for="s' + value.questionId + '">' +
+                        '<div class="weui-cell__hd">' +
+                        '<input value="' + value.questionId + '" type="checkbox" class="weui-check" name="checkbox1" id="s' + value.questionId + '">' +
+                        '<i class="weui-icon-checked"></i>' +
+                        '</div>' +
+                        '<div class="weui-cell__bd"><p>' +
+                        value.questionId + '.' + value.questionContent +
+                        '</p></div></label>'
+                    );
+                })
+            }
+        });
+    }
+
+    function distributeQuestion() {
+        var questionids = "";
+        $.each($('input:checkbox'), function () {
+            if (this.checked) {
+                questionids += $(this).val() + ",";
+            }
+        });
+        if (questionids == null || questionids == "") {
+            alert("请选择习题");
+            return false;
+        }
+
+        var param = "questionIds=" + 1;
+        var url = config.server + "question/distribute";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: param,
+            dataType: 'json',
+            success: function (res) {
+                alert(res.msg);
+            }
+        });
+    }
+</script>
+</html>

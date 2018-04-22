@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>做毕设啦啦啦啦啦</title>
+    <title>教师管理-页面</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -22,27 +22,24 @@
             <div class='demos-content-padded'>
                 <a href="javascript:;" id='show-toast' class="weui-btn weui-btn_primary">做毕设了！！！</a>
             </div>
-
         </div>
+
         <div id="tab2" class="weui-tab__bd-item">
-            <br/><br/><br/><br/><br/>
-            <a href="javascript:;" id='show-toast-forbidden' class="weui-btn weui-btn_primary">能不做吗？？？</a>
-        </div>
-        <div id="tab3" class="weui-tab__bd-item">
-            <br/><br/><br/><br/><br/>
-            <a href="javascript:;" id='show-loading' class="weui-btn weui-btn_primary">还是做吧...</a>
-
-        </div>
-        <div id="tab4" class="weui-tab__bd-item">
-            <!--<a href="javascript:;" id='show-userinfo' class="weui-btn weui-btn_primary">还是做吧...</a>-->
-            <header class='demos-header'>
-                <h1 class="demos-title">我的操作</h1>
+            <header class="demos-header">
+                <h1 class="demos-title">业务管理</h1>
             </header>
-
             <div class="weui-grids">
+                <a href="./classes/studentApproval.html" class="weui-grid js_grid">
+                    <div class="weui-grid__icon">
+                        <img src="../../images/icon_nav_msg.png" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        学生申请
+                    </p>
+                </a>
                 <a href="./exercises/list.html" class="weui-grid js_grid">
                     <div class="weui-grid__icon">
-                        <img src="../../images/icon_nav_button.png" alt="">
+                        <img src="../../images/icon_nav_msg.png" alt="">
                     </div>
                     <p class="weui-grid__label">
                         查看题库
@@ -80,25 +77,71 @@
                         添加班级
                     </p>
                 </a>
-                <a href="./exercises/distribute.html" class="weui-grid js_grid">
+                <a href="board/selectClass.html" class="weui-grid js_grid">
                     <div class="weui-grid__icon">
-                        <img src="../../images/icon_nav_toast.png" alt="">
+                        <img src="../../images/icon_nav_dialog.png" alt="">
                     </div>
                     <p class="weui-grid__label">
-                        生成习题集
+                        班级留言板
                     </p>
                 </a>
-                <a href="./exercises/distribute.html" class="weui-grid js_grid">
+                <a href="../common/uploadImage.html" class="weui-grid js_grid">
                     <div class="weui-grid__icon">
-                        <img src="../../images/icon_nav_toast.png" alt="">
+                        <img src="../../images/icon_nav_progress.png" alt="">
                     </div>
                     <p class="weui-grid__label">
-                        查看并分发习题集
+                        上传图片
+                    </p>
+                </a>
+
+                <a href="exercises/createHomeWork.html" class="weui-grid js_grid">
+                    <div class="weui-grid__icon">
+                        <img src="../../images/icon_nav_progress.png" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        创建习题集
+                    </p>
+                </a>
+
+                <a href="classes/publishWork.html" class="weui-grid js_grid">
+                    <div class="weui-grid__icon">
+                        <img src="../../images/icon_nav_progress.png" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        发布作业
+                    </p>
+                </a>
+
+
+                <a href="classes/submitStatus.html" class="weui-grid js_grid">
+                    <div class="weui-grid__icon">
+                        <img src="../../images/icon_nav_progress.png" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        查看作业提交情况
+                    </p>
+                </a>
+
+                <a href="exercises/correctObjectQuestion.html" class="weui-grid js_grid">
+                    <div class="weui-grid__icon">
+                        <img src="../../images/icon_nav_progress.png" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        客观题批改
+                    </p>
+                </a>
+
+                <a href="classes/studentRank.html" class="weui-grid js_grid">
+                    <div class="weui-grid__icon">
+                        <img src="../../images/icon_nav_progress.png" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        查看综合得分及排名
                     </p>
                 </a>
             </div>
         </div>
-        <!--<iframe id="tab4" class="weui-tab__bd-item" src="../../example/demos/index.html" style="width: 100%"></iframe>-->
+
     </div>
 
     <div class="weui-tabbar">
@@ -126,6 +169,7 @@
             </div>
             <p class="weui-tabbar__label">我</p>
         </a>
+
     </div>
 </div>
 
