@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>加入班级</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="../../../lib/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../lib/bootstrap-table.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../../css/demos.css">
+</head>
+<body>
+
+<div class="weui-tab__bd-item">
+    <header class="demos-header">
+        <h1 class="demos-title">加入班级</h1>
+    </header>
+
+    <div class="weui-cell weui-cell_vcode">
+        <div class="weui-cell__hd">
+            <label class="weui-label">班级ID</label>
+        </div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="number" placeholder="请输入班级ID" id="searchId">
+        </div>
+        <div class="weui-cell__ft">
+            <button class="weui-vcode-btn" onclick="searchClass()">搜索</button>
+        </div>
+    </div>
+</div>
+
+<div id="noResult" hidden>
+    <br><br><br>
+    <div class="weui-loadmore weui-loadmore_line">
+        <span class="weui-loadmore__tips">搜索结果为空,请确认班级ID</span>
+    </div>
+</div>
+<div id="result" hidden>
+    <br>
+    <table data-toggle="table" class="table table-striped table">
+        <tbody>
+        <tr>
+            <td>班级ID</td>
+            <td id="classId"></td>
+        </tr>
+        <tr>
+            <td>班级名称</td>
+            <td id="className"></td>
+        </tr>
+        <tr>
+            <td>老师</td>
+            <td id="teacher"></td>
+        </tr>
+        <tr>
+            <td>创建时间</td>
+            <td id="createTime"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="weui-flex">
+        <div class="weui-flex__item">
+            <div class="weui-btn-area">
+                <a href="#" class="weui-btn weui-btn_primary" id="joinBtn" onclick="joinClass()">申请加入</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../../../lib/jquery-2.1.4.js"></script>
+<script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/config.js"></script>
+<script src="../../../lib/jquery.cookie.js"></script>
+<script src="../../../js/jquery-weui.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+
+    function searchClass() {
+        var classID = $('#searchId').val();
+        var url = config.server + "classes/findClass";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: 'classId=' + classID,
+            dataType: 'json',
+            success: function (res) {
+                if (null==res) {
+                    $('#result').hide();
+                    $('#noResult').show();
+                } else {
+                    $('#result').show();
+                    $('#noResult').hide();
+                    $('#classId').text(res.classId);
+                    $('#className').text(res.className);
+                    $('#teacher').text(res.teacherName);
+                    $('#createTime').text(fmtDate(res.createTime));
+                }
+            }
+        });
+    }
+
+    function joinClass() {
+        var studentName = $.cookie('name');
+        var sutdentId = $.cookie('id');
+        var classID = $('#searchId').val();
+        var joinUrl = config.server + "classes/joinClass";
+        var param = "classId=" + classID + "&studentId=" + sutdentId + "&studentName=" + studentName;
+        $.ajax({
+            type: 'POST',
+            url: joinUrl,
+            data: param,
+            dataType: 'json',
+            success: function (res) {
+                if (res.code.toString().charAt(0) == "2") {
+                    $.toast("申请成功，请等待老师审核.");
+                    setTimeout('delayer()', 3000);
+                } else {
+                    $.toptip(res.msg);
+                }
+            }
+        });
+    }
+    function delayer() {
+        window.location = "../home.html";
+    }
+</script>
+</html>
