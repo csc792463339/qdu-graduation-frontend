@@ -48,7 +48,7 @@
             dateType: 'json',
             success: function (res) {
                 var obj = JSON.parse(res);
-                if (obj.list.length > 0) {
+                if (obj.appClass.trim() != "" && obj.appClass.trim() != null) {
                     var content = "<div class=\"weui-cells weui-cells_form\">\n" +
                         "        <div class=\"weui-cell\">\n" +
                         "            <div class=\"weui-cell__hd\"><label class=\"weui-label\">姓名</label></div>\n" +
