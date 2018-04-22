@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看习题集</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+
+    <link rel="stylesheet" href="../../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../../css/demos.css">
+</head>
+<body>
+
+<header class='demos-header'>
+    <h1 class="demos-title">查看习题集</h1>
+</header>
+
+<div class="weui-cells" id="questionList"></div>
+
+</body>
+<script src="../../../lib/jquery-2.1.4.js"></script>
+<script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/config.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+<script src="../../../js/jquery-weui.js"></script>
+<script>
+    $(function () {
+        getAllExe();
+    })
+
+    function getAllExe() {
+        var url = config.server + "homework/list";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'json',
+            success: function (res) {
+                jQuery.each(res.allHomework, function (key, value) {
+                    $("#questionList").append(
+                        '<a class="weui-cell weui-cell_access" href="./detail.html?homeworkId=' + value.homeworkId + '">' +
+                        '<div class="weui-cell__bd"><p>' +
+                        '试题集编号：' + value.homeworkId + '【总分值：' + value.fullScore + '】' +
+                        '</p></div>' +
+                        '<div class="weui-cell__ft">' +
+                        '</div>' +
+                        '</a>'
+                    );
+                })
+            }
+        });
+    }
+</script>
+</html>

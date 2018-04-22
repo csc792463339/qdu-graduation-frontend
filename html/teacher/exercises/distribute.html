@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>发布习题集</title>
+    <title>生成习题集</title>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +18,7 @@
 <body>
 
 <header class='demos-header'>
-    <h1 class="demos-title">发布习题集</h1>
+    <h1 class="demos-title">生成习题集</h1>
 </header>
 
 <div class="weui-cells" id="questionList"></div>
@@ -28,7 +28,7 @@
 <div class="weui-cells weui-cells_checkbox" id="questioncheckbox"></div>
 
 <div class='demos-content-padded'>
-    <a href="javascript:void(0);" class="weui-btn weui-btn_default" onclick="distributeQuestion();">分发习题集</a>
+    <a href="javascript:void(0);" class="weui-btn weui-btn_default" onclick="distributeQuestion();">生成习题集</a>
 </div>
 
 </body>
@@ -81,7 +81,7 @@
             return false;
         }
 
-        var param = "questionIds=" + 1;
+        var param = "questionIds=" + questionids;
         var url = config.server + "question/distribute";
         $.ajax({
             type: 'POST',
