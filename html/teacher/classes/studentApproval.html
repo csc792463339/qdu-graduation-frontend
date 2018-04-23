@@ -83,12 +83,12 @@
                         "        <div class=\"weui-flex\">\n" +
                         "            <div class=\"weui-flex__item\">\n" +
                         "                <div class=\"weui-btn-area\">\n" +
-                        "                    <a class=\"weui-btn weui-btn_warn\" onclick=\"reject\">拒绝</a>\n" +
+                        "                    <a class=\"weui-btn weui-btn_warn\" onclick=\"reject(" + obj.classId + "," + obj.studentId + ")\">拒绝</a>\n" +
                         "                </div>\n" +
                         "            </div>\n" +
                         "            <div class=\"weui-flex__item\">\n" +
                         "                <div class=\"weui-btn-area\">\n" +
-                        "                    <a class=\"weui-btn weui-btn_primary\" onclick=\"approval\">通过</a>\n" +
+                        "                    <a class=\"weui-btn weui-btn_primary\" onclick=\"approval(" + obj.classId + "," + obj.studentId + ")\">通过</a>\n" +
                         "                </div>\n" +
                         "            </div>\n" +
                         "        </div>\n" +
@@ -105,28 +105,27 @@
         })
     });
 
-    function approval(phone) {
-        var url = config.server + "manager/approval";
+    function approval(classId, studentId) {
+        var url = config.server + "teacher/studentApprovalPass";
         $.ajax({
             type: 'POST',
             url: url,
-            data: "phone=" + phone,
+            data: "studentId=" + studentId + "&classId=" + classId,
             dataType: 'json',
             success: function (res) {
                 $.toast(res.msg, function () {
-                    window.location.reload()
+                    window.location.reload();
                 });
-
             }
         });
     }
 
-    function reject(phone) {
-        var url = config.server + "manager/reject";
+    function reject(classId, studentId) {
+        var url = config.server + "teacher/studentApprovalReject";
         $.ajax({
             type: 'POST',
             url: url,
-            data: "phone=" + phone,
+            data: "studentId=" + studentId + "&classId=" + classId,
             dataType: 'json',
             success: function (res) {
                 $.toast(res.msg, function () {
