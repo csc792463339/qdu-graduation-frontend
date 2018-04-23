@@ -48,6 +48,7 @@
 </body>
 <script src="../../../lib/jquery-2.1.4.js"></script>
 <script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/jquery.cookie.js"></script>
 <script src="../../../lib/config.js"></script>
 <script>
     $(function () {
@@ -62,6 +63,7 @@
         var questionContent = $("#questionContent").val();
         var questionImg = $("#questionImg").val();
         var questionScore = $("#questionScore").val();
+        var teacherId = $.cookie('id');
 
         if (questionContent == null || questionContent == "") {
             alert("题库内容不能为空");
@@ -73,7 +75,7 @@
         }
 
         var param = "questionType=" + questionType + "&questionContent=" + questionContent +
-            "&questionImg = " + questionImg + "&questionScore=" + questionScore;
+            "&questionImg = " + questionImg + "&questionScore=" + questionScore + "&teacherId=" + teacherId;
         var url = config.server + "question/add";
         $.ajax({
             type: 'POST',

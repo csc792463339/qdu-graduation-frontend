@@ -26,6 +26,7 @@
 </body>
 <script src="../../../lib/jquery-2.1.4.js"></script>
 <script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/jquery.cookie.js"></script>
 <script src="../../../lib/config.js"></script>
 <script>
     $(function () {
@@ -39,8 +40,9 @@
     })
 
     function getAllClasses() {
+        var teacherId = $.cookie('id');
         var url = config.server + "classes/list";
-        var param = "teacherId=" + 8;
+        var param = "teacherId=" + teacherId;
         $.ajax({
             type: 'POST',
             url: url,
@@ -49,7 +51,9 @@
             success: function (res) {
                 jQuery.each(res.classes, function (key, value) {
                     $("#classesList").append(
-                        '<a class="weui-cell weui-cell_access" href="./detail.html?classId=' + value.classId + '">' +
+                        '<a class="weui-cell weui-cell_access" ' +
+//                        'href="./detail.html?classId=' + value.classId + '"' +
+                        '>' +
                         '<div class="weui-cell__bd"><p>' +
                         value.classId + '.' + value.className + '.' + value.teacherName +
                         '</p></div>' +

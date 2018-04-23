@@ -19,7 +19,7 @@
 <div class="weui-cell">
     <div class="weui-cell__hd"><label class="weui-label">名称</label></div>
     <div class="weui-cell__bd">
-        <input class="weui-input" type="text" placeholder="请输入习题集名称">
+        <input class="weui-input" type="text" placeholder="请输入习题集名称" id="questionListName">
     </div>
 </div>
 
@@ -73,6 +73,7 @@
 
     function distributeQuestion() {
         var questionids = "";
+        var questionListName = $("#questionListName").val();
         $.each($('input:checkbox'), function () {
             if (this.checked) {
                 questionids += $(this).val() + ",";
@@ -82,8 +83,12 @@
             alert("请选择习题");
             return false;
         }
+        if (questionListName == null || questionListName == "") {
+            alert("请输入习题集名称");
+            return false;
+        }
 
-        var param = "questionIds=" + 1;
+        var param = "questionIds=" + questionids + "&questionListName=" + questionListName;
         var url = config.server + "question/distribute";
         $.ajax({
             type: 'POST',
