@@ -35,8 +35,11 @@
 <div class='demos-content-padded'>
     <a href="javascript:void(0);" class="weui-btn weui-btn_primary" onclick="distributeQuestion();">确定</a>
 </div>
+
 <script src="../../../lib/jquery-2.1.4.js"></script>
 <script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/jquery.cookie.js"></script>
+<script src="../../../lib/config.js"></script>
 <script>
     $(function () {
         FastClick.attach(document.body);
@@ -46,58 +49,72 @@
 
 
 <script>
-    $("#job").select({
-        title: "选择习题集",
-        items: ["练习01", "练习02", "练习03", "练习04", "练习05"],
-        onChange: function (d) {
-            console.log(this, d);
-        },
-        onClose: function () {
-            console.log("close");
-        },
-        onOpen: function () {
-            console.log("open");
-        },
-    });
+    $(function () {
+        url1 = config.server + "homework/list";
+        url2 = config.server + "classes/list";
+        var teacherId = $.cookie('id');
+        var param = "teacherId=" + teacherId;
+        var questionlist = new Array();
+        var classlist = new Array();
+        //获取习题集
+        $.ajax({
+            type: 'post',
+            url: url1,
+            data: param,
+            dateType: 'json',
+            success: function (res) {
+                var obj = JSON.parse(res);
+                jQuery.each(obj.allHomework, function (key, value) {
+                    questionlist.push("【" + value.homeworkId + "】" + value.questionsId);
+                })
+                $("#job").select({
+                    title: "选择习题集",
+                    items: questionlist,
+                    onChange: function (d) {
+                        console.log(this, d);
+                    },
+                    onClose: function () {
+                        console.log("close");
+                    },
+                    onOpen: function () {
+                        console.log("open");
+                    },
+                });
+            }
+        })
 
-    $("#in").select({
-        title: "选择班级",
-        multi: true,
-        min: 1,
-        max: 6,
-        items: [
-            {
-                title: "java01",
-                value: 1,
-            },
-            {
-                title: "java02",
-                value: 2,
-            },
-            {
-                title: "java03",
-                value: 3,
-            },
-            {
-                title: "java04",
-                value: 4,
-            },
-            {
-                title: "java05",
-                value: 5,
-            },
-            {
-                title: "java06",
-                value: 6,
-            },
-        ],
-        onChange: function (d) {
-            console.log(this, d);
-        },
-        onClose: function (d) {
-            console.log('close')
-        }
-    });
+        //获取班级
+        $.ajax({
+            type: 'post',
+            url: url2,
+            data: param,
+            dateType: 'json',
+            success: function (res) {
+                var obj = JSON.parse(res);
+                jQuery.each(obj.classes, function (key, value) {
+                    classlist.push("【" + value.classId + "】" + value.className);
+                })
+                $("#in").select({
+                    title: "选择班级",
+                    multi: true,
+                    min: 1,
+                    items: classlist,
+                    onChange: function (d) {
+                        console.log(this, d);
+                    },
+                    onClose: function (d) {
+                        console.log('close')
+                    }
+                });
+            }
+        })
+    })
+
+    function distributeQuestion() {
+        var questionid = $("#job").val();
+        var classlist = $("#in").val();
+        alert(classlist);
+    }
 </script>
 </body>
 </html>
