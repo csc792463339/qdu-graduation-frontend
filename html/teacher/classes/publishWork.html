@@ -113,7 +113,18 @@
     function distributeQuestion() {
         var questionid = $("#job").val();
         var classlist = $("#in").val();
-        alert(classlist);
+        var teacherId = $.cookie('id');
+        var param = "questionid=" + questionid + "&classlist=" + classlist + "&teacherId=" + teacherId;
+        distributeQuestionUrl = config.server + "homework/distribute";
+        $.ajax({
+            url: distributeQuestionUrl,
+            dataType: "json",
+            type: "post",
+            data: param,
+            success: function (res) {
+                alert(res.msg);
+            }
+        })
     }
 </script>
 </body>
