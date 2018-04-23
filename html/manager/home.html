@@ -224,6 +224,16 @@
         }
         $('#hader').text('你好，' + name + " !");
         $('#info').text('类型:' + type);
+
+        var tab = GetQueryString('tab');
+        if (tab != null && tab != "") {
+            $('#tab1').attr("class", "weui-tab__bd-item");
+            if (tab == '2') {
+                $('#tab2').attr("class", "weui-tab__bd-item weui-tab__bd-item--active");
+            } else if (tab == '3') {
+                $('#tab3').attr("class", "weui-tab__bd-item weui-tab__bd-item--active");
+            }
+        }
     });
 </script>
 <script>
@@ -232,6 +242,13 @@
             console.log('close');
         });
     });
+
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return r[2];
+        return null;
+    }
 </script>
 </body>
 </html>

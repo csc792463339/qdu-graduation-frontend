@@ -35,7 +35,8 @@
                 </div>
             </div>
         </div>
-        <div class="weui-btn-area"><input type="submit" class="weui-btn weui-btn_primary" value="上传"></div>
+        <div class="weui-btn-area"><input type="submit" class="weui-btn weui-btn_primary" value="上传" onclick="wait()">
+        </div>
     </form>
 </div>
 
@@ -48,6 +49,14 @@
     $(function () {
         FastClick.attach(document.body);
     });
+
+    function wait() {
+        $.showLoading('等一下哈');
+        setTimeout(function () {
+            $.hideLoading();
+        }, 10000)
+    }
+
     var form = document.getElementsByTagName("form")[0];
     form.action = config.server + "file/uploadfile";
 
