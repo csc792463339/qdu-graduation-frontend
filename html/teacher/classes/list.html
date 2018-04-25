@@ -23,6 +23,15 @@
 
 <div class="weui-cells" id="classesList"></div>
 
+<div>
+    <br/><br/><br/><br/>
+    <div class="weui-flex__item">
+        <div class="weui-btn-area">
+            <a href="../home.html" class="weui-btn weui-btn_plain-default">返回</a>
+        </div>
+    </div>
+</div>
+
 </body>
 <script src="../../../lib/jquery-2.1.4.js"></script>
 <script src="../../../lib/fastclick.js"></script>
@@ -55,12 +64,13 @@
 //                        'href="./detail.html?classId=' + value.classId + '"' +
                         '>' +
                         '<div class="weui-cell__bd"><p>' +
-                        value.classId + '.' + value.className + '.' + value.teacherName +
+                        value.className + '【' + value.teacherName + '】' +
                         '</p></div>' +
                         '<div class="weui-cell__ft">' +
                         '</div>' +
                         '</a>'
-                    );
+                    )
+                    ;
                 })
             }
         });

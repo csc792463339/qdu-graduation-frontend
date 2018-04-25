@@ -23,9 +23,19 @@
 
 <div class="weui-cells" id="questionList"></div>
 
+<div>
+    <br/><br/><br/><br/>
+    <div class="weui-flex__item">
+        <div class="weui-btn-area">
+            <a href="../home.html" class="weui-btn weui-btn_plain-default">返回</a>
+        </div>
+    </div>
+</div>
+
 </body>
 <script src="../../../lib/jquery-2.1.4.js"></script>
 <script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/jquery.cookie.js"></script>
 <script src="../../../lib/config.js"></script>
 <script>
     $(function () {
@@ -40,14 +50,17 @@
 
     function getAllExe() {
         var url = config.server + "question/list";
+        var teacherId = $.cookie('id');
+        var param = "teacherId=" + teacherId;
         $.ajax({
             type: 'POST',
             url: url,
+            data: param,
             dataType: 'json',
             success: function (res) {
-                jQuery.each(res.questions,function(key,value){
+                jQuery.each(res.questions, function (key, value) {
                     $("#questionList").append(
-                        '<a class="weui-cell weui-cell_access" href="./detail.html?questionId='+value.questionId+'">' +
+                        '<a class="weui-cell weui-cell_access" href="./detail.html?questionId=' + value.questionId + '">' +
                         '<div class="weui-cell__bd"><p>' +
                         value.questionId + '.' + value.questionContent +
                         '</p></div>' +

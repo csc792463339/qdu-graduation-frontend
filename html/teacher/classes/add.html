@@ -40,9 +40,19 @@
     <a href="javascript:void(0);" class="weui-btn weui-btn_default" onclick="getAllClasses();">添加班级</a>
 </div>
 
+<div id="studentApproval">
+    <br/><br/><br/><br/>
+    <div class="weui-flex__item">
+        <div class="weui-btn-area">
+            <a href="../home.html" class="weui-btn weui-btn_plain-default">返回</a>
+        </div>
+    </div>
+</div>
+
 </body>
 <script src="../../../lib/jquery-2.1.4.js"></script>
 <script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/jquery.cookie.js"></script>
 <script src="../../../lib/config.js"></script>
 <script>
     $(function () {
@@ -52,10 +62,21 @@
 <script src="../../../js/jquery-weui.js"></script>
 <script>
     function getAllClasses() {
+        var teacherId = $.cookie('id');
         var url = config.server + "classes/add";
-        var teacherId = 8;
         var className = $("#className").val();
         var teacherName = $("#teacherName").val();
+
+        if (teacherName.trim() == "" || teacherName == null) {
+            $.toast("请输入教师名", "forbidden");
+            return false;
+        }
+
+        if (className.trim() == "" || className == null) {
+            $.toast("请输入班级名", "forbidden");
+            return false;
+        }
+
         var param = "teacherId=" + teacherId + "&className=" + className + "&teacherName=" + teacherName;
         $.ajax({
             type: 'POST',
@@ -63,7 +84,9 @@
             data: param,
             dataType: 'json',
             success: function (res) {
-                alert(res.msg);
+                $.toast(res.msg, function () {
+                    window.location.reload()
+                });
             }
         });
     }

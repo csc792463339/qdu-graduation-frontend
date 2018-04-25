@@ -82,6 +82,14 @@
     <a href="javascript:void(0);" class="weui-btn weui-btn_default" onclick="addQuestion();">添加习题</a>
 </div>
 
+<div>
+    <br/><br/><br/><br/>
+    <div class="weui-flex__item">
+        <div class="weui-btn-area">
+            <a href="../home.html" class="weui-btn weui-btn_plain-default">返回</a>
+        </div>
+    </div>
+</div>
 </body>
 <script src="../../../lib/jquery-2.1.4.js"></script>
 <script src="../../../lib/fastclick.js"></script>
@@ -108,27 +116,27 @@
         var teacherId = $.cookie('id');
 
         if (questionContent == null || questionContent == "") {
-            alert("题库内容不能为空");
+            $.toptip('题库内容不能为空', 'warning');
             return false;
         }
         if (optionA == null || optionA == "") {
-            alert("选项A不能为空");
+            $.toptip('选项A不能为空', 'warning');
             return false;
         }
         if (optionB == null || optionB == "") {
-            alert("选项B不能为空");
+            $.toptip('选项B不能为空', 'warning');
             return false;
         }
         if (optionC == null || optionC == "") {
-            alert("选项C不能为空");
+            $.toptip('选项C不能为空', 'warning');
             return false;
         }
         if (optionD == null || optionD == "") {
-            alert("选项D不能为空");
+            $.toptip('选项D不能为空', 'warning');
             return false;
         }
         if (questionScore == null || questionScore == "") {
-            alert("题目分值不能为空");
+            $.toptip('题目分值不能为空', 'warning');
             return false;
         }
 
@@ -142,7 +150,11 @@
             data: param,
             dataType: 'json',
             success: function (res) {
-                alert(res.msg);
+                if (res.code == "1102") {
+                    $.toptip(res.msg, 'success');
+                } else {
+                    $.toptip(res.msg, 'error');
+                }
             }
         });
     }

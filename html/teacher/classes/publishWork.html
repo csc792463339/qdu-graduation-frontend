@@ -30,12 +30,27 @@
             <input class="weui-input" id="in" type="text" value="">
         </div>
     </div>
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label for="" class="weui-label">时分秒</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="datetime-local" value="" placeholder="" id="deadtime">
+        </div>
+    </div>
 </div>
 
 <div class='demos-content-padded'>
-    <a href="javascript:void(0);" class="weui-btn weui-btn_primary" onclick="distributeQuestion();">确定</a>
+    <a href="javascript:void(0);" class="weui-btn weui-btn_warn" onclick="distributeQuestion();">发布</a>
 </div>
 
+<div>
+    <br/><br/><br/><br/>
+    <div class="weui-flex__item">
+        <div class="weui-btn-area">
+            <a href="../home.html" class="weui-btn weui-btn_plain-default">返回</a>
+        </div>
+    </div>
+</div>
 <script src="../../../lib/jquery-2.1.4.js"></script>
 <script src="../../../lib/fastclick.js"></script>
 <script src="../../../lib/jquery.cookie.js"></script>
@@ -46,7 +61,6 @@
     });
 </script>
 <script src="../../../js/jquery-weui.js"></script>
-
 
 <script>
     $(function () {
@@ -64,22 +78,26 @@
             dateType: 'json',
             success: function (res) {
                 var obj = JSON.parse(res);
-                jQuery.each(obj.allHomework, function (key, value) {
-                    questionlist.push("【" + value.homeworkId + "】" + value.questionsId);
-                })
-                $("#job").select({
-                    title: "选择习题集",
-                    items: questionlist,
-                    onChange: function (d) {
-                        console.log(this, d);
-                    },
-                    onClose: function () {
-                        console.log("close");
-                    },
-                    onOpen: function () {
-                        console.log("open");
-                    },
-                });
+                if (obj.allHomework.length > 0) {
+                    jQuery.each(obj.allHomework, function (key, value) {
+                        questionlist.push("【" + value.homeworkId + "】" + value.questionsId);
+                    })
+                    $("#job").select({
+                        title: "选择习题集",
+                        items: questionlist,
+                        onChange: function (d) {
+                            console.log(this, d);
+                        },
+                        onClose: function () {
+                            console.log("close");
+                        },
+                        onOpen: function () {
+                            console.log("open");
+                        },
+                    });
+                } else {
+                    $.alert("请先创建习题集");
+                }
             }
         })
 
@@ -91,21 +109,25 @@
             dateType: 'json',
             success: function (res) {
                 var obj = JSON.parse(res);
-                jQuery.each(obj.classes, function (key, value) {
-                    classlist.push("【" + value.classId + "】" + value.className);
-                })
-                $("#in").select({
-                    title: "选择班级",
-                    multi: true,
-                    min: 1,
-                    items: classlist,
-                    onChange: function (d) {
-                        console.log(this, d);
-                    },
-                    onClose: function (d) {
-                        console.log('close')
-                    }
-                });
+                if (obj.classes.length > 0) {
+                    jQuery.each(obj.classes, function (key, value) {
+                        classlist.push("【" + value.classId + "】" + value.className);
+                    })
+                    $("#in").select({
+                        title: "选择班级",
+                        multi: true,
+                        min: 1,
+                        items: classlist,
+                        onChange: function (d) {
+                            console.log(this, d);
+                        },
+                        onClose: function (d) {
+                            console.log('close')
+                        }
+                    });
+                } else {
+                    $.alert("请先创建班级");
+                }
             }
         })
     })
@@ -114,7 +136,22 @@
         var questionid = $("#job").val();
         var classlist = $("#in").val();
         var teacherId = $.cookie('id');
-        var param = "questionid=" + questionid + "&classlist=" + classlist + "&teacherId=" + teacherId;
+        var deadline = $("#deadtime").val();
+
+        if (questionid == "" || questionid == null) {
+            $.toptip("请选择习题集", 'error');
+            return false;
+        }
+        if (classlist == "" || classlist == null) {
+            $.toptip("请选择班级", 'error');
+            return false;
+        }
+        if (deadline == "" || deadline == null) {
+            $.toptip("请选择提交时间", 'error');
+            return false;
+        }
+
+        var param = "questionid=" + questionid + "&classlist=" + classlist + "&teacherId=" + teacherId + "&deadline=" + deadline;
         distributeQuestionUrl = config.server + "homework/distribute";
         $.ajax({
             url: distributeQuestionUrl,
@@ -122,7 +159,7 @@
             type: "post",
             data: param,
             success: function (res) {
-                alert(res.msg);
+                $.toptip(res.msg, 'success');
             }
         })
     }

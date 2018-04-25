@@ -32,40 +32,52 @@
             <input class="weui-input" type="type" placeholder="请输入试题类型" id="questionType">
         </div>
     </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd"><label class="weui-label">试题内容:</label></div>
-        <div class="weui-cell__bd">
-            <input class="weui-input" type="type" placeholder="请输入试题内容" id="questionContent">
+    <div class="weui-cells__title">试题内容:</div>
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <textarea class="weui-textarea" placeholder="请输入试题内容" rows="3" id="questionContent"></textarea>
+            </div>
         </div>
     </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd"><label class="weui-label">试题图片:</label></div>
-        <div class="weui-cell__bd">
-            <input class="weui-input" type="type" placeholder="请输入试题图片" id="questionImg">
+    <div class="weui-cells__title">试题图片:</div>
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <img class="weui-vcode-img" src="" id="questionImg">
+            </div>
         </div>
     </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd"><label class="weui-label">选项A内容:</label></div>
-        <div class="weui-cell__bd">
-            <input class="weui-input" type="type" placeholder="请输入选项A内容" id="optionA">
+    <div class="weui-cells__title">选项A内容:</div>
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <textarea class="weui-textarea" placeholder="请输入选项A内容" rows="3" id="optionA"></textarea>
+            </div>
         </div>
     </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd"><label class="weui-label">选项B内容:</label></div>
-        <div class="weui-cell__bd">
-            <input class="weui-input" type="type" placeholder="请输入选项B内容" id="optionB">
+    <div class="weui-cells__title">选项B内容:</div>
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <textarea class="weui-textarea" placeholder="请输入选项B内容" rows="3" id="optionB"></textarea>
+            </div>
         </div>
     </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd"><label class="weui-label">选项C内容:</label></div>
-        <div class="weui-cell__bd">
-            <input class="weui-input" type="type" placeholder="请输入选项C内容" id="optionC">
+    <div class="weui-cells__title">选项C内容:</div>
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <textarea class="weui-textarea" placeholder="请输入选项C内容" rows="3" id="optionC"></textarea>
+            </div>
         </div>
     </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd"><label class="weui-label">选项D内容:</label></div>
-        <div class="weui-cell__bd">
-            <input class="weui-input" type="type" placeholder="请输入选项D内容" id="optionD">
+    <div class="weui-cells__title">选项D内容:</div>
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <textarea class="weui-textarea" placeholder="请输入选项D内容" rows="3" id="optionD"></textarea>
+            </div>
         </div>
     </div>
     <div class="weui-cell">
@@ -82,8 +94,13 @@
     </div>
 </div>
 
-<div class='demos-content-padded'>
-    <a href="javascript:;" class="weui-btn weui-btn_warn">删除本试题</a>
+<div>
+    <br/><br/><br/><br/>
+    <div class="weui-flex__item">
+        <div class="weui-btn-area">
+            <a href="../home.html" class="weui-btn weui-btn_plain-default">返回</a>
+        </div>
+    </div>
 </div>
 </body>
 <script src="../../../lib/jquery-2.1.4.js"></script>
@@ -107,7 +124,11 @@
             dataType: 'json',
             success: function (res) {
                 $("#questionId").val(res.question.questionId);
-                $("#questionType").val(res.question.questionType);
+                if (res.question.questionType == 2) {
+                    $("#questionType").val("客观题");
+                } else {
+                    $("#questionType").val("选择题");
+                }
                 $("#questionContent").val(res.question.questionContent);
                 $("#questionImg").val(res.question.questionImg);
                 $("#optionA").val(res.question.optionA);
@@ -117,10 +138,14 @@
                 $("#correctOption").val(res.question.correctOption);
                 $("#questionScore").val(res.question.questionScore);
                 if (res.question.questionType == 2) {
-                    $("#optionA").parent().parent().hide();
-                    $("#optionB").parent().parent().hide();
-                    $("#optionC").parent().parent().hide();
-                    $("#optionD").parent().parent().hide();
+                    $("#optionA").parent().parent().parent().hide();
+                    $("#optionA").parent().parent().parent().prev().hide();
+                    $("#optionB").parent().parent().parent().hide();
+                    $("#optionB").parent().parent().parent().prev().hide();
+                    $("#optionC").parent().parent().parent().hide();
+                    $("#optionC").parent().parent().parent().prev().hide();
+                    $("#optionD").parent().parent().parent().hide();
+                    $("#optionD").parent().parent().parent().prev().hide();
                     $("#correctOption").parent().parent().hide();
                 }
             }
