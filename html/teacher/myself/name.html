@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看管理的班级</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+
+    <link rel="stylesheet" href="../../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../../css/demos.css">
+</head>
+<body>
+
+<header class='demos-header'>
+    <h1 class="demos-title">修改昵称</h1>
+</header>
+
+<div class="weui-cells__title">新昵称</div>
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入昵称" id="userName">
+        </div>
+    </div>
+</div>
+
+<div class='demos-content-padded'>
+    <a class="weui-btn weui-btn_plain-primary" onclick="saveUserName();">保存</a>
+</div>
+
+<div>
+    <br/><br/><br/><br/>
+    <div class="weui-flex__item">
+        <div class="weui-btn-area">
+            <a href="../home.html" class="weui-btn weui-btn_plain-default">返回</a>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="../../../lib/jquery-2.1.4.js"></script>
+<script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/jquery.cookie.js"></script>
+<script src="../../../lib/config.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+<script src="../../../js/jquery-weui.js"></script>
+<script>
+    $(function () {
+        var name = $.cookie('name');
+        $("#userName").val(name);
+    })
+
+    function saveUserName() {
+        var newName = $("#userName").val();
+        var userId = $.cookie('id');
+        if (newName == "" || newName == null) {
+            $.toptip("昵称不能为空", 'error');
+            return false;
+        }
+        var url = config.server + "teacher/changeUserName";
+        var param = "userName=" + newName + "&userId=" + userId;
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: param,
+            dataType: 'json',
+            success: function (res) {
+                if (res.code == "200") {
+                    $.toast(res.msg, 'success');
+                    $.cookie('name', newName, {expires: 7, path: '/'});
+                } else {
+                    $.toast(res.msg, 'error');
+                }
+            }
+        });
+    }
+</script>
+</html>
