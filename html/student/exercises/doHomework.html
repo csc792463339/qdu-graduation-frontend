@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>做作业</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="../../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../../css/demos.css">
+</head>
+<body>
+
+<header class='demos-header'>
+    <h1 class="demos-title">习题集1</h1>
+</header>
+<div id="notDoneHomework">
+    <div id="question">1.发布教师发布教师发布教师发布教师发布教师发布教师发布教师发布教师发布教师发布教师</div>
+
+    <div class="weui-cell__bd" id="textDiv">
+        <br>
+        <textarea placeholder="" class="weui-textarea" rows="5" id="textContent"
+                  style="border:solid 1px #9B9B9B;width: 99%;border-radius:10px;"></textarea>
+    </div>
+
+    <div class="weui-cells weui-cells_checkbox" id="selDiv">
+        <label class="weui-cell weui-check__label" for="oa">
+            <div class="weui-cell__hd">
+                <input type="radio" class="weui-check" name="checkbox1" id="oa">
+                <i class="weui-icon-checked"></i>
+            </div>
+            <span>A:</span>
+            <div class="weui-cell__bd">
+                <span id="oaSpan">standard is dealt for u.</span>
+            </div>
+        </label>
+        <label class="weui-cell weui-check__label" for="ob">
+            <div class="weui-cell__hd">
+                <input type="radio" name="checkbox1" class="weui-check" id="ob">
+                <i class="weui-icon-checked"></i>
+            </div>
+            <span>B:</span>
+            <div class="weui-cell__bd">
+                <span id="obSpan">standard is dealicidealicientdealicientdealicientent for u.</span>
+            </div>
+        </label>
+        <label class="weui-cell weui-check__label" for="oc">
+            <div class="weui-cell__hd">
+                <input type="radio" name="checkbox1" class="weui-check" id="oc">
+                <i class="weui-icon-checked"></i>
+            </div>
+            <span>C:</span>
+            <div class="weui-cell__bd">
+                <span id="ocSpan">standard is w for u.</span>
+            </div>
+        </label>
+        <label class="weui-cell weui-check__label" for="od">
+            <div class="weui-cell__hd">
+                <input type="radio" name="checkbox1" class="weui-check" id="od">
+                <i class="weui-icon-checked"></i>
+            </div>
+            <span>D:</span>
+            <div class="weui-cell__bd">
+                <span id="odSpan">standard is dealicient for u.</span>
+            </div>
+        </label>
+    </div>
+
+    <div class="weui-flex">
+        <div class="weui-flex__item">
+            <div class="weui-btn-area">
+                <a href="#" class="weui-btn weui-btn_default">上一题</a>
+            </div>
+        </div>
+        <div class="weui-flex__item">
+            <div class="weui-btn-area">
+                <span href="#" class="weui-btn weui-btn_default">下一题</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="../../../lib/jquery-2.1.4.js"></script>
+<script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/jquery.cookie.js"></script>
+<script src="../../../lib/config.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+<script src="../../../js/jquery-weui.js"></script>
+<script>
+    url = config.server + "student/notdoneHomework";
+    $().ready(function () {
+        var studentId = $.cookie('id');
+        var param = "studentId=" + studentId;
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: param,
+            dateType: 'json',
+            success: function (res) {
+                var array = jQuery.parseJSON(res);
+                var content = "";
+
+                $('#notDoneHomework').html(content);
+            }
+        })
+    })
+</script>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>未完成作业</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="../../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../../css/demos.css">
+</head>
+<body>
+
+<header class='demos-header'>
+    <h1 class="demos-title">未完成作业</h1>
+</header>
+<div id="notDoneHomework">
+
+    <div class="weui-panel weui-panel_access">
+        <div class="weui-panel__bd">
+            <div class="weui-loadmore weui-loadmore_line">
+                <span class="weui-loadmore__tips">当前没有未完成的作业</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../../../lib/jquery-2.1.4.js"></script>
+<script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/jquery.cookie.js"></script>
+<script src="../../../lib/config.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+<script src="../../../js/jquery-weui.js"></script>
+<script>
+    url = config.server + "student/notdoneHomework";
+    $().ready(function () {
+        var studentId = $.cookie('id');
+        var param = "studentId=" + studentId;
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: param,
+            dateType: 'json',
+            success: function (res) {
+                var array = jQuery.parseJSON(res);
+                var content = "";
+                for (var i = 0; i < array.length; i++) {
+                    content = content + "<div class=\"weui-cells weui-cells_form\">\n" +
+                        "<div class=\"weui-cell\">\n" +
+                        "<div class=\"weui-cell__hd\"><label class=\"weui-label\">作业名</label></div>\n" +
+                        "<div class=\"weui-cell__bd\">\n" +
+                        "<input class=\"weui-input\" value=\"" + array[i]['homeworkName'] + "\" disabled>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<div class=\"weui-cell\">\n" +
+                        "<div class=\"weui-cell__hd\"><label class=\"weui-label\">发布教师</label></div>\n" +
+                        "<div class=\"weui-cell__bd\">\n" +
+                        "<input class=\"weui-input\" value=\"" + array[i]['teacherName'] + "\" disabled>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<div class=\"weui-cell\">\n" +
+                        "<div class=\"weui-cell__hd\"><label class=\"weui-label\">发布时间</label></div>\n" +
+                        "<div class=\"weui-cell__bd\">\n" +
+                        "<input class=\"weui-input\" value=\"" + fmtDate(array[i]['publishTime']) + "\" disabled>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<div class=\"weui-cell\">\n" +
+                        "<div class=\"weui-cell__hd\"><label class=\"weui-label\">截止时间</label></div>\n" +
+                        "<div class=\"weui-cell__bd\">\n" +
+                        "<input class=\"weui-input\" value=\"" + fmtDate(array[i]['deadLine']) + "\" disabled>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<div class=\"weui-flex\">\n" +
+                        "<div class=\"weui-flex__item\">\n" +
+                        "<div class=\"weui-btn-area\">\n" +
+                        "<a href=\"doHomework.html?id=" + array[i]['homwworkId'] + "\" class=\"weui-btn weui-btn_primary\">去完成</a>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "<hr>\n" +
+                        "</div>";
+                }
+                $('#notDoneHomework').html(content);
+            }
+        })
+    })
+</script>
+</html>
