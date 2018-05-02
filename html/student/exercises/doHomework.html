@@ -13,7 +13,7 @@
 <body>
 
 <header class='demos-header'>
-    <h1 class="demos-title">习题集1</h1>
+    <h1 class="demos-title" id="homeworkName">习题集1</h1>
 </header>
 <div id="notDoneHomework">
     <div id="questionContent" data-id=""></div>
@@ -79,7 +79,7 @@
             </div>
 
             <div class="weui-btn-area" id="submitDiv" hidden>
-                <span href="#" class="weui-btn weui-btn_primary" id="submit">提交</span>
+                <span href="#" class="weui-btn weui-btn_primary" id="submit" onclick="submitAllAnswer()">提交</span>
             </div>
 
         </div>
@@ -98,12 +98,16 @@
 </script>
 <script src="../../../js/jquery-weui.js"></script>
 <script>
+    var studentId = $.cookie('id');
     var questions;
     var index = 0;
+    var homeworkId = GetQueryString('homeworkId');
+    var homeworkName = GetQueryString('homeworkName');
     url = config.server + "student/getQuestions";
     $().ready(function () {
+        $('#homeworkName').text(decodeURI(homeworkName));
         var studentId = $.cookie('id');
-        var param = "homeworkId=9";
+        var param = "homeworkId=" + homeworkId;
         $.ajax({
             type: 'post',
             url: url,
@@ -138,7 +142,7 @@
             $('input:radio[name=checkbox1]').attr('checked', false);
 
             var questionId = questions[qindex]['questionId'];
-            var param = "studentId=1" + "&homeworkId=9" + "&questionId=" + questionId + "&type=sel";
+            var param = "studentId=" + studentId + "&homeworkId=" + homeworkId + "&questionId=" + questionId + "&type=sel";
             url = config.server + "student/getOneAnswer";
             $.ajax({
                 type: 'post',
@@ -167,7 +171,7 @@
             $('#textDiv').show();
 
             var questionId = questions[qindex]['questionId'];
-            var param = "studentId=1" + "&homeworkId=9" + "&questionId=" + questionId + "&type=per";
+            var param = "studentId=" + studentId + "&homeworkId=" + homeworkId + "&questionId=" + questionId + "&type=per";
             url = config.server + "student/getOneAnswer";
             $.ajax({
                 type: 'post',
@@ -175,12 +179,9 @@
                 data: param,
                 dateType: 'JSON',
                 success: function (res) {
-                    //  if (res.length > 0) {
                     $('#textContent').val(res);
-                    //}
                 }
             })
-
         }
         if (qindex == 0) {
             $('#preQuestion').hide();
@@ -202,9 +203,8 @@
     }
 
     function submitOneSelect(op) {
-        var studentId = $.cookie('id');
         var questionId = $('#questionContent').attr("data-id");
-        var param = "studentId=1" + "&homeworkId=9" + "&questionId=" + questionId + "&type=sel" + "&answer=" + op;
+        var param = "studentId=" + studentId + "&homeworkId=" + homeworkId + "&questionId=" + questionId + "&type=sel" + "&answer=" + op;
         url = config.server + "student/submitOneAnswer";
         $.ajax({
             type: 'post',
@@ -215,12 +215,10 @@
             }
         })
     }
-
 
     function submitOneContent() {
-        var studentId = $.cookie('id');
         var questionId = $('#questionContent').attr("data-id");
-        var param = "studentId=1" + "&homeworkId=9" + "&questionId=" + questionId + "&type=per" + "&answer=" + $('#textContent').val();
+        var param = "studentId=" + studentId + "&homeworkId=" + homeworkId + "&questionId=" + questionId + "&type=per" + "&answer=" + $('#textContent').val();
         url = config.server + "student/submitOneAnswer";
         $.ajax({
             type: 'post',
@@ -232,20 +230,32 @@
         })
     }
 
-    function getOneContent() {
-        var questionId = $('#questionContent').attr("data-id");
-        var param = "studentId=1" + "&homeworkId=9" + "&questionId=" + questionId + "&type=per";
-        url = config.server + "student/submitOneAnswer";
+    function submitAllAnswer() {
+        var param = "studentId=" + studentId + "&homeworkId=" + homeworkId;
+        url = config.server + "student/submitAllAnswer";
         $.ajax({
             type: 'post',
             url: url,
             data: param,
             dateType: 'JSON',
             success: function (res) {
-                alert(res)
+                $.toast("提交成功，提交排名:" + res);
+                setTimeout('delayer()', 3000);
             }
         })
     }
 
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return r[2];
+        return null;
+    }
+
+    function delayer() {
+        window.location = "../home.html";
+    }
 </script>
 </html>
+
+
