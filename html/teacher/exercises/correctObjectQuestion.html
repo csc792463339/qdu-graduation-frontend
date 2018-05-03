@@ -20,55 +20,59 @@
 <header class='demos-header'>
     <h1 class="demos-title">批改客观题</h1>
 </header>
+
+<input type="hidden" id="studentId">
+<input type="hidden" id="homeworkId">
+
 <div class="weui-cells weui-cells_form">
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">习题编号:</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="text" value="01">
+            <input class="weui-input" type="text" id="questionId" readonly="readonly">
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">学生姓名:</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="text" value="abc">
+            <input class="weui-input" type="text" id="userName" readonly="readonly">
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">试题内容:</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="text" id="questionContent" value="1+2=？">
+            <input class="weui-input" type="text" id="questionContent" readonly="readonly">
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">试题图片:</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="text" id="questionImg">
+            <input class="weui-input" type="text" id="questionImg" readonly="readonly">
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">试题分值:</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="text" value="10" id="questionScore">
+            <input class="weui-input" type="text" id="questionScore" readonly="readonly">
         </div>
     </div>
 
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">学生提交答案:</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="text" value="3">
+            <input class="weui-input" type="text" id="questionAnswer" readonly="readonly">
         </div>
     </div>
 
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">得分:</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="text">
+            <input class="weui-input" type="text" id="giveScore">
         </div>
     </div>
 </div>
 
 <div class='demos-content-padded'>
-    <a href="javascript:void(0);" class="weui-btn weui-btn_plain-default">确定</a>
+    <a class="weui-btn weui-btn_plain-default" onclick="giveScore();">确定</a>
 </div>
 
 </body>
@@ -82,6 +86,47 @@
 </script>
 <script src="../../../js/jquery-weui.js"></script>
 <script>
+    $(function () {
+        var url = config.server + "teacher/getObject"
+        var param = 6;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: param,
+            dataType: 'json',
+            success: function (res) {
+                $("#questionId").val(res.questionId);
+                $("#userName").val(res.userName);
+                $("#questionContent").val(res.questionContent);
+                $("#questionImg").val(res.questionImg);
+                $("#questionScore").val(res.questionScore);
+                $("#questionAnswer").val(res.questionAnswer);
+                $("#studentId").val(res.studentId);
+                $("#homeworkId").val(res.homeworkId);
+            }
+        })
+    })
 
+    function giveScore() {
+        var studentId = $("#studentId").val();
+        var homeworkId = $("#homeworkId").val();
+        var questionId = $("#questionId").val();
+        var score = $("#giveScore").val();
+        if (score == null || "" == score.trim()) {
+            alert("请输入分数");
+            return false;
+        }
+        var url = config.server + "teacher/giveScore";
+        var param = "studentId=" + studentId + "&homeworkId=" + homeworkId + "&questionId=" + questionId + "&score=" + score;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: param,
+            dataType: 'json',
+            success: function (res) {
+
+            }
+        })
+    }
 </script>
 </html>
