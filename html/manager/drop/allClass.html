@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>注销班级</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="../../../lib/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../lib/bootstrap-table.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../../css/demos.css">
+</head>
+<body>
+<header class='demos-header'>
+    <h1 class="demos-title">注销班级</h1>
+</header>
+
+
+<div class="weui-search-bar weui-search-bar_focusing" id="searchBar">
+    <form class="weui-search-bar__form" action="#">
+        <div class="weui-search-bar__box">
+            <i class="weui-icon-search"></i>
+            <input type="number" class="weui-search-bar__input" id="searchInput" placeholder="请输入班级ID" required="">
+            <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+        </div>
+        <label class="weui-search-bar__label" id="searchText"
+               style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+            <i class="weui-icon-search"></i>
+            <span>请输入班级ID</span>
+        </label>
+    </form>
+    <a class="weui-search-bar__cancel-btn" id="search">搜索</a>
+</div>
+<br><br><br><br><br>
+<div class="weui-flex">
+    <div class="weui-flex__item">
+        <div class="weui-btn-area">
+            <a href="../home.html?tab=3" class="weui-btn weui-btn_primary">返回</a>
+        </div>
+    </div>
+    <div class="weui-flex__item" hidden>
+        <div class="weui-btn-area">
+            <a href="#" class="weui-btn weui-btn_warn">注销</a>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="../../../lib/jquery-2.1.4.js"></script>
+<script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/config.js"></script>
+<script src="../../../js/jquery-weui.js"></script>
+<script src="../../../js/bootstrap-table.min.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+
+    $().ready(function () {
+        $('#search').click(function () {
+            var classid = $('#searchInput').val();
+            alert(classid)
+        })
+
+    })
+</script>
+</html>

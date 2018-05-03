@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>做作业</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="../../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../../css/demos.css">
+</head>
+<body>
+
+<header class='demos-header'>
+    <h1 class="demos-title" id="homeworkName">习题集1</h1>
+</header>
+<div id="notDoneHomework">
+    <div id="questionContent" data-id=""></div>
+
+    <div class="weui-cell__bd" id="textDiv">
+        <br>
+        <textarea placeholder="" class="weui-textarea" rows="5" id="textContent"
+                  style="border:solid 1px #9B9B9B;width: 99%;border-radius:10px;"></textarea>
+    </div>
+
+    <div class="weui-cells weui-cells_checkbox" id="selDiv">
+        <label class="weui-cell weui-check__label" for="oa">
+            <div class="weui-cell__hd">
+                <input type="radio" class="weui-check" name="checkbox1" id="oa" onclick="submitOneSelect('A')">
+                <i class="weui-icon-checked"></i>
+            </div>
+            <span>A:</span>
+            <div class="weui-cell__bd">
+                <span id="oaSpan"></span>
+            </div>
+        </label>
+        <label class="weui-cell weui-check__label" for="ob">
+            <div class="weui-cell__hd">
+                <input type="radio" name="checkbox1" class="weui-check" id="ob" onclick="submitOneSelect('B')">
+                <i class="weui-icon-checked"></i>
+            </div>
+            <span>B:</span>
+            <div class="weui-cell__bd">
+                <span id="obSpan"></span>
+            </div>
+        </label>
+        <label class="weui-cell weui-check__label" for="oc">
+            <div class="weui-cell__hd">
+                <input type="radio" name="checkbox1" class="weui-check" id="oc" onclick="submitOneSelect('C')">
+                <i class="weui-icon-checked"></i>
+            </div>
+            <span>C:</span>
+            <div class="weui-cell__bd">
+                <span id="ocSpan"></span>
+            </div>
+        </label>
+        <label class="weui-cell weui-check__label" for="od">
+            <div class="weui-cell__hd">
+                <input type="radio" name="checkbox1" class="weui-check" id="od" onclick="submitOneSelect('D')">
+                <i class="weui-icon-checked"></i>
+            </div>
+            <span>D:</span>
+            <div class="weui-cell__bd">
+                <span id="odSpan"></span>
+            </div>
+        </label>
+    </div>
+
+    <div class="weui-flex">
+        <div class="weui-flex__item">
+            <div class="weui-btn-area">
+                <a href="#" class="weui-btn weui-btn_default" id="preQuestion" onclick="preQuestion()">上一题</a>
+            </div>
+        </div>
+        <div class="weui-flex__item">
+            <div class="weui-btn-area" id="nextDiv">
+                <span href="#" class="weui-btn weui-btn_default" id="nextQuestion" onclick="nextQuestion()">下一题</span>
+            </div>
+
+            <div class="weui-btn-area" id="submitDiv" hidden>
+                <span href="#" class="weui-btn weui-btn_primary" id="submit" onclick="submitAllAnswer()">提交</span>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="../../../lib/jquery-2.1.4.js"></script>
+<script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/jquery.cookie.js"></script>
+<script src="../../../lib/config.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+<script src="../../../js/jquery-weui.js"></script>
+<script>
+    var studentId = $.cookie('id');
+    var questions;
+    var index = 0;
+    var homeworkId = GetQueryString('homeworkId');
+    var homeworkName = GetQueryString('homeworkName');
+    url = config.server + "student/getQuestions";
+    $().ready(function () {
+        $('#homeworkName').text(decodeURI(homeworkName));
+        var studentId = $.cookie('id');
+        var param = "homeworkId=" + homeworkId;
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: param,
+            dateType: 'JSON',
+            success: function (res) {
+                questions = jQuery.parseJSON(res);
+                changeQuestion(index);
+            }
+        })
+    });
+
+    function changeQuestion(qindex) {
+        $("#questionContent").attr("data-id", questions[qindex]['questionId']);
+        if (questions.length == (qindex + 1)) {
+            $('#nextDiv').hide();
+            $('#submitDiv').show();
+        } else {
+            $('#nextDiv').show();
+            $('#submitDiv').hide();
+        }
+        $('#questionContent').text((qindex + 1) + '.' + questions[qindex]['questionContent'] + " (" + questions[qindex]['questionScore'] + "分)");
+
+        if (questions[qindex]['questionType'] == '1') {
+            $('#textDiv').hide();
+            $('#selDiv').show();
+            $('#oaSpan').text(questions[qindex]['optionA']);
+            $('#obSpan').text(questions[qindex]['optionB']);
+            $('#ocSpan').text(questions[qindex]['optionC']);
+            $('#odSpan').text(questions[qindex]['optionD']);
+
+            $('input:radio[name=checkbox1]').attr('checked', false);
+
+            var questionId = questions[qindex]['questionId'];
+            var param = "studentId=" + studentId + "&homeworkId=" + homeworkId + "&questionId=" + questionId + "&type=sel";
+            url = config.server + "student/getOneAnswer";
+            $.ajax({
+                type: 'post',
+                url: url,
+                data: param,
+                dateType: 'JSON',
+                success: function (res) {
+                    if (res == "A") {
+                        $('input:radio[name=checkbox1]')[0].checked = true;
+                    }
+                    if (res == "B") {
+                        $('input:radio[name=checkbox1]')[1].checked = true;
+                    }
+                    if (res == "C") {
+                        $('input:radio[name=checkbox1]')[2].checked = true;
+                    }
+                    if (res == "D") {
+                        $('input:radio[name=checkbox1]')[3].checked = true;
+                    }
+
+                }
+            })
+
+        } else {
+            $('#selDiv').hide();
+            $('#textDiv').show();
+
+            var questionId = questions[qindex]['questionId'];
+            var param = "studentId=" + studentId + "&homeworkId=" + homeworkId + "&questionId=" + questionId + "&type=per";
+            url = config.server + "student/getOneAnswer";
+            $.ajax({
+                type: 'post',
+                url: url,
+                data: param,
+                dateType: 'JSON',
+                success: function (res) {
+                    $('#textContent').val(res);
+                }
+            })
+        }
+        if (qindex == 0) {
+            $('#preQuestion').hide();
+        } else {
+            $('#preQuestion').show();
+        }
+
+    }
+
+    function nextQuestion() {
+        if (questions[index]['questionType'] == '2') {
+            submitOneContent();
+        }
+        changeQuestion(++index);
+    }
+
+    function preQuestion() {
+        changeQuestion(--index);
+    }
+
+    function submitOneSelect(op) {
+        var questionId = $('#questionContent').attr("data-id");
+        var param = "studentId=" + studentId + "&homeworkId=" + homeworkId + "&questionId=" + questionId + "&type=sel" + "&answer=" + op;
+        url = config.server + "student/submitOneAnswer";
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: param,
+            dateType: 'JSON',
+            success: function (res) {
+            }
+        })
+    }
+
+    function submitOneContent() {
+        var questionId = $('#questionContent').attr("data-id");
+        var param = "studentId=" + studentId + "&homeworkId=" + homeworkId + "&questionId=" + questionId + "&type=per" + "&answer=" + $('#textContent').val();
+        url = config.server + "student/submitOneAnswer";
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: param,
+            dateType: 'JSON',
+            success: function (res) {
+            }
+        })
+    }
+
+    function submitAllAnswer() {
+        var param = "studentId=" + studentId + "&homeworkId=" + homeworkId;
+        url = config.server + "student/submitAllAnswer";
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: param,
+            dateType: 'JSON',
+            success: function (res) {
+                $.toast("提交成功，提交排名:" + res);
+                setTimeout('delayer()', 3000);
+            }
+        })
+    }
+
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return r[2];
+        return null;
+    }
+
+    function delayer() {
+        window.location = "../home.html";
+    }
+</script>
+</html>
+
+
