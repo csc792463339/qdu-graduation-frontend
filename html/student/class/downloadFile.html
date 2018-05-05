@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>班级资料</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="../../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../../css/demos.css">
+</head>
+<body>
+
+<header class='demos-header'>
+    <h1 class="demos-title">班级资料</h1>
+</header>
+<div id="notDoneHomework">
+
+    <div class="weui-panel weui-panel_access">
+        <div class="weui-panel__bd">
+            <div class="weui-loadmore weui-loadmore_line">
+                <span class="weui-loadmore__tips">资料为空</span>
+            </div>
+        </div>
+        <div>
+            <br/><br/><br/><br/>
+            <div class="weui-flex__item">
+                <div class="weui-btn-area">
+                    <a href="../home.html" class="weui-btn weui-btn_plain-default">返回</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../../../lib/jquery-2.1.4.js"></script>
+<script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/jquery.cookie.js"></script>
+<script src="../../../lib/config.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+<script src="../../../js/jquery-weui.js"></script>
+<script>
+    url = config.server + "file/selectFileByClassId";
+    var classId = GetQueryString("classId");
+    $().ready(function () {
+        var param = "classId=" + classId;
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: param,
+            dateType: 'json',
+            success: function (res) {
+                var array = jQuery.parseJSON(res);
+                var content = "";
+                if (array.length > 0) {
+                    for (var i = 0; i < array.length; i++) {
+                        content = content + "<div class=\"weui-cells weui-cells_form\">\n" +
+                            "<div class=\"weui-cell\">\n" +
+                            "<div class=\"weui-cell__hd\"><label class=\"weui-label\">文件名</label></div>\n" +
+                            "<div class=\"weui-cell__bd\">\n" +
+                            "<input class=\"weui-input\" value=\"" + array[i]['fileName'] + "\" disabled>\n" +
+                            "</div>\n" +
+                            "</div>\n" +
+                            "<div class=\"weui-cell\">\n" +
+                            "<div class=\"weui-cell__hd\"><label class=\"weui-label\">上传者</label></div>\n" +
+                            "<div class=\"weui-cell__bd\">\n" +
+                            "<input class=\"weui-input\" value=\"" + array[i]['userName'] + "\" disabled>\n" +
+                            "</div>\n" +
+                            "</div>\n" +
+                            "<div class=\"weui-cell\">\n" +
+                            "<div class=\"weui-cell__hd\"><label class=\"weui-label\">上传时间</label></div>\n" +
+                            "<div class=\"weui-cell__bd\">\n" +
+                            "<input class=\"weui-input\" value=\"" + fmtDate(array[i]['uploadTime']) + "\" disabled>\n" +
+                            "</div>\n" +
+                            "</div>\n" +
+                            "<div class=\"weui-flex\">\n" +
+                            "<div class=\"weui-flex__item\">\n" +
+                            "<div class=\"weui-btn-area\">\n" +
+                            "<a href=\"" + config.server + "/file/download/" + array[i]['filePath'] + "\" class=\"weui-btn weui-btn_primary\">下载</a>\n" +
+                            "</div>\n" +
+                            "</div>\n" +
+                            "</div>\n" +
+                            "<hr>\n" +
+                            "</div>";
+                    }
+                    $('#notDoneHomework').html(content);
+                }
+            }
+        })
+    })
+
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return r[2];
+        return null;
+    }
+</script>
+</html>

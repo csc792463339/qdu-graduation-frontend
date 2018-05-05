@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>文件上传</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="../../../lib/weui.min.css">
+    <link rel="stylesheet" href="../../../css/jquery-weui.css">
+    <link rel="stylesheet" href="../../../css/demos.css">
+</head>
+
+<body ontouchstart>
+<header class='demos-header'>
+    <h1 class="demos-title">文件上传</h1>
+</header>
+
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">选择班级</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" id="in" type="text" value="" readonly="" data-values="">
+        </div>
+    </div>
+</div>
+
+<div class="weui-cells weui-cells_form">
+    <form id="uploadForm" enctype="multipart/form-data">
+        <div style="width: auto;float: left;text-align: center" id="fileArea" hidden>
+            <img src="../../../images/paper.jpg">
+            <h3 id="filename"></h3>
+            <br>
+        </div>
+
+        <div class="weui-cell" id="fileDiv">
+            <div class="weui-cell__bd">
+                <div class="weui-uploader__bd">
+                    <ul class="weui-uploader__files">
+                    </ul>
+                    <div class="weui-uploader__input-box img1">
+                        <input name="file" id="uploaderInput" class="weui-uploader__input js_file" type="file" multiple>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<button onclick="getFile()" class="weui-btn weui-btn_primary">上传</button>
+</div>
+
+
+</body>
+<script src="../../../lib/jquery-2.1.4.js"></script>
+<script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/config.js"></script>
+<script src="../../../lib/jquery.cookie.js"></script>
+<script>
+    $(function () {
+
+        FastClick.attach(document.body);
+        var teacherId = $.cookie('id');
+        var classlist = new Array();
+        $.ajax({
+            type: 'post',
+            url: config.server + "classes/list",
+            data: "teacherId=" + teacherId,
+            dateType: 'json',
+            success: function (res) {
+                var obj = JSON.parse(res);
+                if (obj.classes.length > 0) {
+                    jQuery.each(obj.classes, function (key, value) {
+                        classlist.push("(" + value.classId + ")" + value.className);
+                    });
+                    $("#in").select({
+                        title: "选择班级",
+                        multi: true,
+                        min: 1,
+                        items: classlist,
+                        onChange: function (d) {
+                            console.log(this, d);
+                        },
+                        onClose: function (d) {
+                            console.log('close')
+                        }
+                    });
+                } else {
+                    $.alert("请先创建班级");
+                }
+            }
+        })
+    });
+    var fileName = "";
+    var name = $.cookie('name');
+    $(function () {
+        $('.js_file').on('change', function (event) {
+            var files = event.target.files;
+            // 如果没有选中文件，直接返回
+            if (files.length === 0) {
+                return;
+            }
+            var file = files[0];
+            var reader = new FileReader();
+            fileName = file.name;
+            $('#filename').text(file.name);
+            $('#fileArea').show();
+            $('#fileDiv').hide();
+            reader.readAsDataURL(file);
+        })
+    });
+
+    function wait() {
+        $.showLoading('等一下哈');
+        setTimeout(function () {
+            $.hideLoading();
+        }, 10000)
+    }
+
+
+    function getFile() {
+        var classlist = $("#in").val();
+        if (classlist == "" || classlist == null) {
+            $.toptip("请选择班级", 'error');
+            return false;
+        }
+        if (fileName == "" || fileName == null) {
+            $.toptip("请选择文件", 'error');
+            return false;
+        }
+        $.ajax({
+            url: config.server + "file/uploadfile",
+            type: 'POST',
+            cache: false,
+            data: new FormData($('#uploadForm')[0]),
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $.ajax({
+                    url: config.server + "file/saveFileInClass",
+                    type: 'POST',
+                    data: "userName=" + name + "&classId=" + classlist + "&fileName=" + fileName + "&filePath=" + data,
+                    dateType: 'json',
+                    success: function (data) {
+                        $.toast("上传成功");
+                        setTimeout('delayer()', 3000);
+                    }
+                });
+            }
+        });
+    }
+
+    function delayer() {
+        window.location = "../home.html";
+    }
+</script>
+<script src="../../../js/jquery-weui.js"></script>
+</body>
+</html>
