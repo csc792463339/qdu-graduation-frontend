@@ -15,10 +15,14 @@
 <div class="weui-tab">
     <div class="weui-tab__bd">
         <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
-            <header class="demos-header">
-                <h1 class="demos-title" id="hader"></h1>
-                <p class="demos-sub-title"></p>
-            </header>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="../../images/1.png"/></div>
+                    <div class="swiper-slide"><img src="../../images/2.png"/></div>
+                    <div class="swiper-slide"><img src="../../images/3.png"/></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
             <div class="weui-panel weui-panel_access">
                 <div class="weui-panel__hd">发现新鲜事</div>
                 <div class="weui-panel__bd" id="newsDiv">
@@ -230,6 +234,7 @@
 <script src="../../lib/fastclick.js"></script>
 <script src="../../lib/jquery.cookie.js"></script>
 <script src="../../lib/config.js"></script>
+<script src="../../js/swiper.js"></script>
 <script>
     $(function () {
         FastClick.attach(document.body);
@@ -289,6 +294,11 @@
             }
         });
     }
+
+    $(".swiper-container").swiper({
+        loop: true,
+        autoplay: 3000
+    });
 
     function getNews() {
         var url = config.server + "teacherinfo/getNews";

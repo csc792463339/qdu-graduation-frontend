@@ -14,13 +14,21 @@
 <div ontouchstart class="weui-tab">
     <div class="weui-tab__bd">
         <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
-            <header class="demos-header">
-                <h1 class="demos-title" id="hader"></h1>
-                <p class="demos-sub-title" id="info"></p>
-            </header>
-            <div class='demos-content-padded'>
-                <a href="javascript:;" id='show-toast' class="weui-btn weui-btn_primary">做毕设了！！！</a>
+
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="../../images/1.png"/></div>
+                    <div class="swiper-slide"><img src="../../images/2.png"/></div>
+                    <div class="swiper-slide"><img src="../../images/3.png"/></div>
+                </div>
+                <div class="swiper-pagination"></div>
             </div>
+            <div class="weui-panel weui-panel_access">
+                <div class="weui-panel__hd">发现新鲜事</div>
+                <div class="weui-panel__bd" id="newsDiv">
+                </div>
+            </div>
+
         </div>
         <div id="tab2" class="weui-tab__bd-item">
             <header class="demos-header">
@@ -206,7 +214,9 @@
 </div>
 <script src="../../lib/jquery-2.1.4.js"></script>
 <script src="../../lib/fastclick.js"></script>
+<script src="../../js/swiper.js"></script>
 <script src="../../lib/jquery.cookie.js"></script>
+<script src="../../lib/config.js"></script>
 <script>
     $(function () {
         FastClick.attach(document.body);
@@ -222,9 +232,7 @@
             $.toast("请先登录！", "weui-toast--forbidden");
             window.location.href = '../login.html';
         }
-        $('#hader').text('你好，' + name + " !");
-        $('#info').text('类型:' + type);
-
+        getNews();
         var tab = GetQueryString('tab');
         if (tab != null && tab != "") {
             $('#tab1').attr("class", "weui-tab__bd-item");
@@ -237,17 +245,37 @@
     });
 </script>
 <script>
-    $(document).on("click", "#show-toast", function () {
-        $.toast("做做做！！！", function () {
-            console.log('close');
-        });
-    });
-
     function GetQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
         var r = window.location.search.substr(1).match(reg);
         if (r != null) return r[2];
         return null;
+    }
+
+    $(".swiper-container").swiper({
+        loop: true,
+        autoplay: 3000
+    });
+
+    function getNews() {
+        var url = config.server + "teacherinfo/getNews";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'json',
+            success: function (res) {
+                $.each(res.news, function (index, item) {
+                    $("#newsDiv").append(
+                        '<a href="./news/detail.html?id=' + item.id + '" class="weui-media-box weui-media-box_appmsg">' +
+                        '<div class="weui-media-box__bd">' +
+                        '<h4 class="weui-media-box__title">' + item.title + '</h4>' +
+                        '<p class="weui-media-box__desc">' + item.content + '</p>' +
+                        '</div>' +
+                        '</a>'
+                    );
+                });
+            }
+        });
     }
 </script>
 </body>

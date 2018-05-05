@@ -14,10 +14,14 @@
 <div class="weui-tab">
     <div class="weui-tab__bd">
         <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
-            <header class="demos-header">
-                <h1 class="demos-title" id="hader"></h1>
-                <p class="demos-sub-title" id="info"></p>
-            </header>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="../../images/1.png"/></div>
+                    <div class="swiper-slide"><img src="../../images/2.png"/></div>
+                    <div class="swiper-slide"><img src="../../images/3.png"/></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
             <div class="weui-panel weui-panel_access">
                 <div class="weui-panel__hd">发现新鲜事</div>
                 <div class="weui-panel__bd" id="newsDiv">
@@ -63,7 +67,7 @@
                         查看共享文件
                     </p>
                 </a>
-                <a href="dialog.html" class="weui-grid js_grid">
+                <a href="class/classBoard.html" class="weui-grid js_grid">
                     <div class="weui-grid__icon">
                         <img src="../../images/icon_nav_dialog.png" alt="">
                     </div>
@@ -77,7 +81,7 @@
                         <img src="../../images/icon_nav_cell.png" alt="">
                     </div>
                     <p class="weui-grid__label">
-                        已加入的班级
+                        统计
                     </p>
                 </a>
 
@@ -89,106 +93,42 @@
                         Progress
                     </p>
                 </a>
-                <a href="msg.html" class="weui-grid js_grid">
-                    <div class="weui-grid__icon">
-                        <img src="../../images/icon_nav_msg.png" alt="">
-                    </div>
-                    <p class="weui-grid__label">
-                        Msg
-                    </p>
-                </a>
-                <a href="article.html" class="weui-grid js_grid">
-                    <div class="weui-grid__icon">
-                        <img src="../../images/icon_nav_article.png" alt="">
-                    </div>
-                    <p class="weui-grid__label">
-                        Article
-                    </p>
-                </a>
-
             </div>
         </div>
+
         <div id="tab3" class="weui-tab__bd-item">
-            <header class="demos-header">
-                <h1 class="demos-title">信息统计</h1>
+            <header class='demos-header'>
+                <h1 class="demos-title">我的地盘</h1>
             </header>
-            <div class="weui-grids">
-                <a href="buttons.html" class="weui-grid js_grid">
-                    <div class="weui-grid__icon">
-                        <img src="../../images/icon_nav_button.png" alt="">
+            <div class="page__bd">
+                <div class="weui-panel weui-panel_access">
+                    <div class="weui-panel__bd">
+                        <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                            <div class="weui-media-box__hd">
+                                <img class="weui-media-box__thumb"
+                                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAeFBMVEUAwAD///+U5ZTc9twOww7G8MYwzDCH4YcfyR9x23Hw+/DY9dhm2WZG0kbT9NP0/PTL8sux7LFe115T1VM+zz7i+OIXxhes6qxr2mvA8MCe6J6M4oz6/frr+us5zjn2/fa67rqB4IF13XWn6ad83nxa1loqyirn+eccHxx4AAAC/klEQVRo3u2W2ZKiQBBF8wpCNSCyLwri7v//4bRIFVXoTBBB+DAReV5sG6lTXDITiGEYhmEYhmEYhmEYhmEY5v9i5fsZGRx9PyGDne8f6K9cfd+mKXe1yNG/0CcqYE86AkBMBh66f20deBc7wA/1WFiTwvSEpBMA2JJOBsSLxe/4QEEaJRrASP8EVF8Q74GbmevKg0saa0B8QbwBdjRyADYxIhqxAZ++IKYtciPXLQVG+imw+oo4Bu56rjEJ4GYsvPmKOAB+xlz7L5aevqUXuePWVhvWJ4eWiwUQ67mK51qPj4dFDMlRLBZTqF3SDvmr4BwtkECu5gHWPkmDfQh02WLxXuvbvC8ku8F57GsI5e0CmUwLz1kq3kD17R1In5816rGvQ5VMk5FEtIiWislTffuDpl/k/PzscdQsv8r9qWq4LRWX6tQYtTxvI3XyrwdyQxChXioOngH3dLgOFjk0all56XRi/wDFQrGQU3Os5t0wJu1GNtNKHdPqYaGYQuRDfbfDf26AGLYSyGS3ZAK4S8XuoAlxGSdYMKwqZKM9XJMtyqXi7HX/CiAZS6d8bSVUz5J36mEMFDTlAFQzxOT1dzLRljjB6+++ejFqka+mXIe6F59mw22OuOw1F4T6lg/9VjL1rLDoI9Xzl1MSYDNHnPQnt3D1EE7PrXjye/3pVpr1Z45hMUdcACc5NVQI0bOdS1WA0wuz73e7/5TNqBPhQXPEFGJNV2zNqWI7QKBd2Gn6AiBko02zuAOXeWIXjV0jNqdKegaE/kJQ6Bfs4aju04lMLkA2T5wBSYPKDGF3RKhFYEa6A1L1LG2yacmsaZ6YPOSAMKNsO+N5dNTfkc5Aqe26uxHpx7ZirvgCwJpWq/lmX1hA7LyabQ34tt5RiJKXSwQ+0KU0V5xg+hZrd4Bn1n4EID+WkQdgLfRNtvil9SPfwy+WQ7PFBWQz6dGWZBLkeJFXZGCfLUjCgGgqXo5TuSu3cugdcTv/HjqnBTEMwzAMwzAMwzAMwzAMw/zf/AFbXiOA6frlMAAAAABJRU5ErkJggg=="
+                                     alt="">
+                            </div>
+                            <div class="weui-media-box__bd">
+                                <p class="weui-media-box__desc">我的头像</p>
+                            </div>
+                        </a>
+                        <a href="./myself/name.html" class="weui-media-box weui-media-box_appmsg">
+                            <div class="weui-media-box__bd">
+                                <h4 class="weui-media-box__title">我的昵称</h4>
+                                <p class="weui-media-box__desc" id="myNameP"></p>
+                            </div>
+                        </a>
+                        <a href="./myself/password.html" class="weui-media-box weui-media-box_appmsg">
+                            <div class="weui-media-box__bd">
+                                <h4 class="weui-media-box__title">修改密码</h4>
+                                <p class="weui-media-box__desc">******</p>
+                            </div>
+                        </a>
                     </div>
-                    <p class="weui-grid__label">
-                        修改密码
-                    </p>
-                </a>
-                <a href="cell.html" class="weui-grid js_grid">
-                    <div class="weui-grid__icon">
-                        <img src="../../images/icon_nav_cell.png" alt="">
-                    </div>
-                    <p class="weui-grid__label">
-                        个人统计
-                    </p>
-                </a>
-                <a href="form.html" class="weui-grid js_grid">
-                    <div class="weui-grid__icon">
-                        <img src="../../images/icon_nav_cell.png" alt="">
-                    </div>
-                    <p class="weui-grid__label">
-                        Test
-                    </p>
-                </a>
-                <a href="flex.html" class="weui-grid js_grid">
-                    <div class="weui-grid__icon">
-                        <img src="../../images/icon_nav_cell.png" alt="">
-                    </div>
-                    <p class="weui-grid__label">
-                        Test
-                    </p>
-                </a>
-                <a href="toast.html" class="weui-grid js_grid">
-                    <div class="weui-grid__icon">
-                        <img src="../../images/icon_nav_toast.png" alt="">
-                    </div>
-                    <p class="weui-grid__label">
-                        Toast
-                    </p>
-                </a>
-                <a href="dialog.html" class="weui-grid js_grid">
-                    <div class="weui-grid__icon">
-                        <img src="../../images/icon_nav_dialog.png" alt="">
-                    </div>
-                    <p class="weui-grid__label">
-                        Dialog
-                    </p>
-                </a>
-                <a href="progress.html" class="weui-grid js_grid">
-                    <div class="weui-grid__icon">
-                        <img src="../../images/icon_nav_progress.png" alt="">
-                    </div>
-                    <p class="weui-grid__label">
-                        Progress
-                    </p>
-                </a>
-                <a href="msg.html" class="weui-grid js_grid">
-                    <div class="weui-grid__icon">
-                        <img src="../../images/icon_nav_msg.png" alt="">
-                    </div>
-                    <p class="weui-grid__label">
-                        Msg
-                    </p>
-                </a>
-                <a href="article.html" class="weui-grid js_grid">
-                    <div class="weui-grid__icon">
-                        <img src="../../images/icon_nav_article.png" alt="">
-                    </div>
-                    <p class="weui-grid__label">
-                        Article
-                    </p>
-                </a>
-
+                </div>
             </div>
         </div>
-        <iframe id="tab4" class="weui-tab__bd-item" src="../../example/demos/index.html" style="width: 100%"></iframe>
     </div>
 
     <div class="weui-tabbar">
@@ -196,26 +136,21 @@
             <div class="weui-tabbar__icon">
                 <img src="../../images/icon_nav_button.png" alt="">
             </div>
-            <p class="weui-tabbar__label">主页</p>
+            <p class="weui-tabbar__label">大千世界</p>
         </a>
         <a href="#tab2" class="weui-tabbar__item">
             <div class="weui-tabbar__icon">
                 <img src="../../images/icon_nav_msg.png" alt="">
             </div>
-            <p class="weui-tabbar__label">个人中心</p>
+            <p class="weui-tabbar__label">校园生活</p>
         </a>
         <a href="#tab3" class="weui-tabbar__item">
             <div class="weui-tabbar__icon">
                 <img src="../../images/icon_nav_article.png" alt="">
             </div>
-            <p class="weui-tabbar__label">发现</p>
+            <p class="weui-tabbar__label">我的地盘</p>
         </a>
-        <a href="#tab4" class="weui-tabbar__item">
-            <div class="weui-tabbar__icon">
-                <img src="../../images/icon_nav_cell.png" alt="">
-            </div>
-            <p class="weui-tabbar__label">我</p>
-        </a>
+
     </div>
 </div>
 
@@ -223,6 +158,7 @@
 <script src="../../lib/fastclick.js"></script>
 <script src="../../lib/jquery.cookie.js"></script>
 <script src="../../lib/config.js"></script>
+<script src="../../js/swiper.js"></script>
 <script>
     $(function () {
         FastClick.attach(document.body);
@@ -241,6 +177,11 @@
         $('#hader').text('你好，' + name + " !");
         $('#info').text('类型:' + type);
         getNews();
+    });
+
+    $(".swiper-container").swiper({
+        loop: true,
+        autoplay: 3000
     });
 
     function getNews() {

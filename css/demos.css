@@ -53,3 +53,12 @@ footer a {
   _position: absolute;
   float: right;
 }
+
+.swiper-container {
+  width: 100%;
+}
+
+.swiper-container img {
+  display: block;
+  width: 100%;
+}
