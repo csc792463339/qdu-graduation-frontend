@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>未完成作业</title>
+    <title>提交历史</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -13,14 +13,14 @@
 <body>
 
 <header class='demos-header'>
-    <h1 class="demos-title">未完成作业</h1>
+    <h1 class="demos-title">提交历史</h1>
 </header>
 <div id="notDoneHomework">
 
     <div class="weui-panel weui-panel_access">
         <div class="weui-panel__bd">
             <div class="weui-loadmore weui-loadmore_line">
-                <span class="weui-loadmore__tips">当前没有未完成的作业</span>
+                <span class="weui-loadmore__tips">历史为空</span>
             </div>
         </div>
         <div>
@@ -45,7 +45,7 @@
 </script>
 <script src="../../../js/jquery-weui.js"></script>
 <script>
-    url = config.server + "student/notdoneHomework";
+    url = config.server + "student/getAllSubmit";
     $().ready(function () {
         var studentId = $.cookie('id');
         var param = "studentId=" + studentId;
@@ -63,31 +63,31 @@
                             "<div class=\"weui-cell\">\n" +
                             "<div class=\"weui-cell__hd\"><label class=\"weui-label\">作业名</label></div>\n" +
                             "<div class=\"weui-cell__bd\">\n" +
-                            "<input class=\"weui-input\" value=\"" + array[i]['homeworkName'] + "\" disabled>\n" +
+                            "<input class=\"weui-input\" value=\"" + array[i]['studentAnswer'] + "\" disabled>\n" +
                             "</div>\n" +
                             "</div>\n" +
                             "<div class=\"weui-cell\">\n" +
-                            "<div class=\"weui-cell__hd\"><label class=\"weui-label\">发布教师</label></div>\n" +
+                            "<div class=\"weui-cell__hd\"><label class=\"weui-label\">提交排名</label></div>\n" +
                             "<div class=\"weui-cell__bd\">\n" +
-                            "<input class=\"weui-input\" value=\"" + array[i]['teacherName'] + "\" disabled>\n" +
+                            "<input class=\"weui-input\" value=\"" + array[i]['submitRank'] + "\" disabled>\n" +
                             "</div>\n" +
                             "</div>\n" +
                             "<div class=\"weui-cell\">\n" +
-                            "<div class=\"weui-cell__hd\"><label class=\"weui-label\">发布时间</label></div>\n" +
+                            "<div class=\"weui-cell__hd\"><label class=\"weui-label\">批改时间</label></div>\n" +
                             "<div class=\"weui-cell__bd\">\n" +
-                            "<input class=\"weui-input\" value=\"" + fmtDate(array[i]['publishTime']) + "\" disabled>\n" +
+                            "<input class=\"weui-input\" value=\"" + fmtDate(array[i]['correctTime']) + "\" disabled>\n" +
                             "</div>\n" +
                             "</div>\n" +
                             "<div class=\"weui-cell\">\n" +
-                            "<div class=\"weui-cell__hd\"><label class=\"weui-label\">截止时间</label></div>\n" +
+                            "<div class=\"weui-cell__hd\"><label class=\"weui-label\">得分</label></div>\n" +
                             "<div class=\"weui-cell__bd\">\n" +
-                            "<input class=\"weui-input\" value=\"" + fmtDate(array[i]['deadLine']) + "\" disabled>\n" +
+                            "<input class=\"weui-input\" value=\"" + array[i]['score'] + "\" disabled>\n" +
                             "</div>\n" +
                             "</div>\n" +
                             "<div class=\"weui-flex\">\n" +
                             "<div class=\"weui-flex__item\">\n" +
                             "<div class=\"weui-btn-area\">\n" +
-                            "<a href=\"doHomework.html?homeworkId=" + array[i]['homwworkId'] + "&homeworkName=" + array[i]['homeworkName'] + "\" class=\"weui-btn weui-btn_primary\">去完成</a>\n" +
+                            "<a href=\"lookHomework.html?homeworkId=" + array[i]['homeworkId'] + "&homeworkName=" + array[i]['studentAnswer'] + "\" class=\"weui-btn weui-btn_primary\">查看</a>\n" +
                             "</div>\n" +
                             "</div>\n" +
                             "</div>\n" +

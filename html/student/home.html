@@ -18,8 +18,10 @@
                 <h1 class="demos-title" id="hader"></h1>
                 <p class="demos-sub-title" id="info"></p>
             </header>
-            <div class='demos-content-padded'>
-                <a href="javascript:;" id='show-toast' class="weui-btn weui-btn_primary">做毕设了！！！</a>
+            <div class="weui-panel weui-panel_access">
+                <div class="weui-panel__hd">发现新鲜事</div>
+                <div class="weui-panel__bd" id="newsDiv">
+                </div>
             </div>
 
         </div>
@@ -36,7 +38,7 @@
                         未完成的作业
                     </p>
                 </a>
-                <a href="cell.html" class="weui-grid js_grid">
+                <a href="exercises/getAllSubmit.html" class="weui-grid js_grid">
                     <div class="weui-grid__icon">
                         <img src="../../images/icon_nav_cell.png" alt="">
                     </div>
@@ -44,14 +46,7 @@
                         提交历史
                     </p>
                 </a>
-                <a href="form.html" class="weui-grid js_grid">
-                    <div class="weui-grid__icon">
-                        <img src="../../images/icon_nav_cell.png" alt="">
-                    </div>
-                    <p class="weui-grid__label">
-                        已加入的班级
-                    </p>
-                </a>
+
                 <a href="class/joinClass.html" class="weui-grid js_grid">
                     <div class="weui-grid__icon">
                         <img src="../../images/icon_nav_cell.png" alt="">
@@ -76,6 +71,16 @@
                         班级留言板
                     </p>
                 </a>
+
+                <a href="form.html" class="weui-grid js_grid">
+                    <div class="weui-grid__icon">
+                        <img src="../../images/icon_nav_cell.png" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        已加入的班级
+                    </p>
+                </a>
+
                 <a href="progress.html" class="weui-grid js_grid">
                     <div class="weui-grid__icon">
                         <img src="../../images/icon_nav_progress.png" alt="">
@@ -217,6 +222,7 @@
 <script src="../../lib/jquery-2.1.4.js"></script>
 <script src="../../lib/fastclick.js"></script>
 <script src="../../lib/jquery.cookie.js"></script>
+<script src="../../lib/config.js"></script>
 <script>
     $(function () {
         FastClick.attach(document.body);
@@ -234,15 +240,29 @@
         }
         $('#hader').text('你好，' + name + " !");
         $('#info').text('类型:' + type);
+        getNews();
     });
-</script>
-<script>
-    $(document)
-        .on("click", "#show-toast", function () {
-            $.toast("做做做！！！", function () {
-                console.log('close');
-            });
+
+    function getNews() {
+        var url = config.server + "teacherinfo/getNews";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'json',
+            success: function (res) {
+                $.each(res.news, function (index, item) {
+                    $("#newsDiv").append(
+                        '<a href="./news/detail.html?id=' + item.id + '" class="weui-media-box weui-media-box_appmsg">' +
+                        '<div class="weui-media-box__bd">' +
+                        '<h4 class="weui-media-box__title">' + item.title + '</h4>' +
+                        '<p class="weui-media-box__desc">' + item.content + '</p>' +
+                        '</div>' +
+                        '</a>'
+                    );
+                });
+            }
         });
+    }
 </script>
 </body>
 </html>
