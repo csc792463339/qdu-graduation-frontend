@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>查看管理的班级</title>
+    <title>查看客观题提交列表</title>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,10 +18,10 @@
 <body>
 
 <header class='demos-header'>
-    <h1 class="demos-title">查看班级</h1>
+    <h1 class="demos-title">查看客观题提交列表</h1>
 </header>
 
-<div class="weui-cells" id="classesList"></div>
+<div class="weui-cells" id="questionList"></div>
 
 <div>
     <br/><br/><br/><br/>
@@ -45,12 +45,12 @@
 <script src="../../../js/jquery-weui.js"></script>
 <script>
     $(function () {
-        getAllClasses();
+        getAllExe();
     })
 
-    function getAllClasses() {
+    function getAllExe() {
+        var url = config.server + "teacher/getHomeworkList";
         var teacherId = $.cookie('id');
-        var url = config.server + "classes/list";
         var param = "teacherId=" + teacherId;
         $.ajax({
             type: 'POST',
@@ -58,13 +58,11 @@
             data: param,
             dataType: 'json',
             success: function (res) {
-                jQuery.each(res.classes, function (key, value) {
-                    $("#classesList").append(
-                        '<a class="weui-cell weui-cell_access" ' +
-//                        'href="./detail.html?classId=' + value.classId + '"' +
-                        '>' +
-                        '<div class="weui-cell__bd"><p>' + '【' + value.classId + '】' +
-                        value.className + '【' + value.teacherName + '】' +
+                jQuery.each(res.homeworkList, function (key, value) {
+                    $("#questionList").append(
+                        '<a class="weui-cell weui-cell_access" href="correctObjectQuestion.html?homeworkId=' + value.homeworkId + '">' +
+                        '<div class="weui-cell__bd"><p>' +
+                        value.homeworkId + '.' + value.homeworkName +
                         '</p></div>' +
                         '<div class="weui-cell__ft">' +
                         '</div>' +

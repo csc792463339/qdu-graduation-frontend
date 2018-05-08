@@ -19,12 +19,15 @@
 
 <header class='demos-header'>
     <h1 class="demos-title">批改客观题</h1>
+    <h2 class="demos-second-title" id="questionTop">当前没有学生提交习题答案!</h2>
+    <h3 class="demos-second-title" id="questionSize"></h3>
 </header>
 
 <input type="hidden" id="studentId">
 <input type="hidden" id="homeworkId">
 
-<div class="weui-cells weui-cells_form">
+
+<div class="weui-cells weui-cells_form" id="questionForm">
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">习题编号:</label></div>
         <div class="weui-cell__bd">
@@ -75,6 +78,15 @@
     <a class="weui-btn weui-btn_plain-default" onclick="giveScore();">确定</a>
 </div>
 
+<div>
+    <br/><br/><br/><br/>
+    <div class="weui-flex__item">
+        <div class="weui-btn-area">
+            <a href="../home.html" class="weui-btn weui-btn_plain-default">返回</a>
+        </div>
+    </div>
+</div>
+
 </body>
 <script src="../../../lib/jquery-2.1.4.js"></script>
 <script src="../../../lib/fastclick.js"></script>
@@ -87,22 +99,29 @@
 <script src="../../../js/jquery-weui.js"></script>
 <script>
     $(function () {
+        $("#questionTop").hide();
         var url = config.server + "teacher/getObject"
-        var param = 6;
+        var param = "homeworkId=" + getUrlParam("homeworkId");
         $.ajax({
             url: url,
             type: 'POST',
             data: param,
             dataType: 'json',
             success: function (res) {
-                $("#questionId").val(res.questionId);
-                $("#userName").val(res.userName);
-                $("#questionContent").val(res.questionContent);
-                $("#questionImg").val(res.questionImg);
-                $("#questionScore").val(res.questionScore);
-                $("#questionAnswer").val(res.questionAnswer);
-                $("#studentId").val(res.studentId);
-                $("#homeworkId").val(res.homeworkId);
+                if (res.homeworkId == null || res.homeworkId == "") {
+                    $("#questionForm").hide();
+                    $("#questionTop").show();
+                } else {
+                    $("#questionId").val(res.questionId);
+                    $("#userName").val(res.userName);
+                    $("#questionContent").val(res.questionContent);
+                    $("#questionImg").val(res.questionImg);
+                    $("#questionScore").val(res.questionScore);
+                    $("#questionAnswer").val(res.questionAnswer);
+                    $("#studentId").val(res.studentId);
+                    $("#homeworkId").val(res.homeworkId);
+                    $("#questionSize").text("本习题还剩" + res.othersize + "个需要批改");
+                }
             }
         })
     })
@@ -124,9 +143,19 @@
             data: param,
             dataType: 'json',
             success: function (res) {
-
+                $.toast(res.msg, function () {
+                    window.location.reload();
+                });
             }
         })
+    }
+
+    //获取url中的参数
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null) return unescape(r[2]);
+        return null; //返回参数值
     }
 </script>
 </html>
