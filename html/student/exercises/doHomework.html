@@ -231,6 +231,9 @@
     }
 
     function submitAllAnswer() {
+        if (questions[index]['questionType'] == '2') {
+            submitOneContent();
+        }
         var param = "studentId=" + studentId + "&homeworkId=" + homeworkId;
         url = config.server + "student/submitAllAnswer";
         $.ajax({
