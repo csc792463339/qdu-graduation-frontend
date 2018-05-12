@@ -47,7 +47,7 @@
 
 
     function upload() {
-        var url = config.server + "file/uploadimg";
+        var url = getServer() + "file/uploadimg";
         var formData = new FormData($("#uploadForm")[0]);
         $.showLoading('等一下哈');
         setTimeout(function () {

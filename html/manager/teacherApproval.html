@@ -36,7 +36,7 @@
 </script>
 <script src="../../js/jquery-weui.js"></script>
 <script>
-    url = config.server + "manager/approvalList";
+    url = getServer() + "manager/approvalList";
     $().ready(function () {
         $.ajax({
             type: 'GET',
@@ -96,7 +96,7 @@
     });
 
     function approval(phone) {
-        var url = config.server + "manager/approval";
+        var url = getServer() + "manager/approval";
         $.ajax({
             type: 'POST',
             url: url,
@@ -112,7 +112,7 @@
     }
 
     function reject(phone) {
-        var url = config.server + "manager/reject";
+        var url = getServer() + "manager/reject";
         $.ajax({
             type: 'POST',
             url: url,

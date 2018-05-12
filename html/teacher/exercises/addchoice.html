@@ -143,7 +143,7 @@
         var param = "questionType=" + questionType + "&questionContent=" + questionContent + "&questionImg = " + questionImg
             + "&optionA=" + optionA + "&optionB=" + optionB + "&optionC=" + optionC + "&optionD=" + optionD
             + "&correctOption=" + correctOption + "&questionScore=" + questionScore + "&teacherId=" + teacherId;
-        var url = config.server + "question/add";
+        var url = getServer() + "question/add";
         $.ajax({
             type: 'POST',
             url: url,

@@ -64,7 +64,7 @@
 
         password = hex_md5(password);
         var param = "phone=" + phone + "&password=" + password;
-        var url = config.server + "login/";
+        var url = getServer() + "login/";
         $.ajax({
             type: 'POST',
             url: url,

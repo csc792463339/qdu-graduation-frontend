@@ -55,7 +55,7 @@
     })
 
     function getAllExe() {
-        var url = config.server + "question/list";
+        var url = getServer() + "question/list";
         $.ajax({
             type: 'POST',
             url: url,
@@ -90,7 +90,7 @@
         }
 
         var param = "questionIds=" + questionids;
-        var url = config.server + "question/distribute";
+        var url = getServer() + "question/distribute";
         $.ajax({
             type: 'POST',
             url: url,

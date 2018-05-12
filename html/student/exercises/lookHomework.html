@@ -117,7 +117,7 @@
     var index = 0;
     var homeworkId = GetQueryString('homeworkId');
     var homeworkName = GetQueryString('homeworkName');
-    url = config.server + "student/getOneSubmit";
+    url = getServer() + "student/getOneSubmit";
     $().ready(function () {
         $('#homeworkName').text(decodeURI(homeworkName));
         var studentId = $.cookie('id');

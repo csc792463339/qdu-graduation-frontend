@@ -295,7 +295,7 @@
 <script>
     function getClassInfo() {
         var param = "userid=8";
-        var url = config.server + "teacherinfo/";
+        var url = getServer() + "teacherinfo/";
         $.ajax({
             type: 'POST',
             url: url,
@@ -314,7 +314,7 @@
     });
 
     function getNews() {
-        var url = config.server + "teacherinfo/getNews";
+        var url = getServer() + "teacherinfo/getNews";
         $.ajax({
             type: 'POST',
             url: url,

@@ -87,7 +87,7 @@
         } else {
             $.ajax({
                 type: 'POST',
-                url: config.server + "register/sendsms",
+                url: getServer() + "register/sendsms",
                 data: 'phone=' + phone,
                 dataType: 'json',
                 success: function (res) {
@@ -119,7 +119,7 @@
         var checkCode = "phone=" + phone + "&code=" + code;
         $.ajax({
             type: 'POST',
-            url: config.server + "register/checkcode",
+            url: getServer() + "register/checkcode",
             data: checkCode,
             dataType: 'json',
             success: function (res) {
@@ -136,10 +136,10 @@
             var param = "phone=" + phone + "&name=" + name + "&password=" + password;
             var url = "";
             if (type == 'student') {
-                url = config.server + "register/add/student";
+                url = getServer() + "register/add/student";
             }
             else if (type == 'teacher') {
-                url = config.server + "register/add/teacher";
+                url = getServer() + "register/add/teacher";
             }
             $.ajax({
                 type: 'POST',

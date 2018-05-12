@@ -31,7 +31,7 @@
         FastClick.attach(document.body);
     });
 
-    var url = config.server + "manager/classInfo";
+    var url = getServer() + "manager/classInfo";
     $().ready(function () {
         $.ajax({
             type: 'GET',

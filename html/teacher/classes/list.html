@@ -50,7 +50,7 @@
 
     function getAllClasses() {
         var teacherId = $.cookie('id');
-        var url = config.server + "classes/list";
+        var url = getServer() + "classes/list";
         var param = "teacherId=" + teacherId;
         $.ajax({
             type: 'POST',

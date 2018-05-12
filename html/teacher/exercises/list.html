@@ -49,7 +49,7 @@
     })
 
     function getAllExe() {
-        var url = config.server + "question/list";
+        var url = getServer() + "question/list";
         var teacherId = $.cookie('id');
         var param = "teacherId=" + teacherId;
         $.ajax({

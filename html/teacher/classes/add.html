@@ -63,7 +63,7 @@
 <script>
     function getAllClasses() {
         var teacherId = $.cookie('id');
-        var url = config.server + "classes/add";
+        var url = getServer() + "classes/add";
         var className = $("#className").val();
         var teacherName = $("#teacherName").val();
 

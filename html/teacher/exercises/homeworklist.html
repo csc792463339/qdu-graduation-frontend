@@ -49,7 +49,7 @@
     })
 
     function getAllExe() {
-        var url = config.server + "teacher/getHomeworkList";
+        var url = getServer() + "teacher/getHomeworkList";
         var teacherId = $.cookie('id');
         var param = "teacherId=" + teacherId;
         $.ajax({

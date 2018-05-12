@@ -116,7 +116,7 @@
     $(function () {
         var qId = getUrlParam('questionId');
         var param = "questionId=" + qId;
-        var url = config.server + "question/detail";
+        var url = getServer() + "question/detail";
         $.ajax({
             type: 'POST',
             url: url,

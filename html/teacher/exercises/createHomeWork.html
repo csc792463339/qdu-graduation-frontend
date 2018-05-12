@@ -59,7 +59,7 @@
 
     function getAllExe() {
         var teacherId = $.cookie('id');
-        var url = config.server + "question/list";
+        var url = getServer() + "question/list";
         var param = "teacherId=" + teacherId;
         $.ajax({
             type: 'POST',
@@ -102,7 +102,7 @@
         }
 
         var param = "questionIds=" + questionids + "&questionListName=" + questionListName + "&teacherId=" + teacherId;
-        var url = config.server + "question/distribute";
+        var url = getServer() + "question/distribute";
         $.ajax({
             type: 'POST',
             url: url,

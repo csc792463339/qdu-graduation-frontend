@@ -37,7 +37,7 @@
 </script>
 <script src="../../../js/jquery-weui.js"></script>
 <script>
-    url = config.server + "teacher/studentApprovalList";
+    url = getServer() + "teacher/studentApprovalList";
     $().ready(function () {
         var teacherId = $.cookie('id');
         var param = "teacherId=" + teacherId;
@@ -106,7 +106,7 @@
     });
 
     function approval(classId, studentId) {
-        var url = config.server + "teacher/studentApprovalPass";
+        var url = getServer() + "teacher/studentApprovalPass";
         $.ajax({
             type: 'POST',
             url: url,
@@ -121,7 +121,7 @@
     }
 
     function reject(classId, studentId) {
-        var url = config.server + "teacher/studentApprovalReject";
+        var url = getServer() + "teacher/studentApprovalReject";
         $.ajax({
             type: 'POST',
             url: url,

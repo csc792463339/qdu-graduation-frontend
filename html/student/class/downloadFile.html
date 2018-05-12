@@ -45,7 +45,7 @@
 </script>
 <script src="../../../js/jquery-weui.js"></script>
 <script>
-    url = config.server + "file/selectFileByClassId";
+    url = getServer() + "file/selectFileByClassId";
     var classId = GetQueryString("classId");
     $().ready(function () {
         var param = "classId=" + classId;
@@ -81,7 +81,7 @@
                             "<div class=\"weui-flex\">\n" +
                             "<div class=\"weui-flex__item\">\n" +
                             "<div class=\"weui-btn-area\">\n" +
-                            "<a href=\"" + config.server + "/file/download/" + array[i]['filePath'] + "\" class=\"weui-btn weui-btn_primary\">下载</a>\n" +
+                            "<a href=\"" + getServer() + "/file/download/" + array[i]['filePath'] + "\" class=\"weui-btn weui-btn_primary\">下载</a>\n" +
                             "</div>\n" +
                             "</div>\n" +
                             "</div>\n" +

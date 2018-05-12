@@ -67,7 +67,7 @@
             $.toptip("昵称不能为空", 'error');
             return false;
         }
-        var url = config.server + "teacher/changeUserName";
+        var url = getServer() + "teacher/changeUserName";
         var param = "userName=" + newName + "&userId=" + userId;
         $.ajax({
             type: 'POST',

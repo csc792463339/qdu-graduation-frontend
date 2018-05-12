@@ -32,7 +32,7 @@
         FastClick.attach(document.body);
     });
 
-    var url = config.server + "student/getClass";
+    var url = getServer() + "student/getClass";
     $().ready(function () {
         var sutdentId = $.cookie('id');
         $.ajax({

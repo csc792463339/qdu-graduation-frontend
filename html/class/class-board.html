@@ -56,7 +56,7 @@
                 return;
             }
             var param = "classId=" + classId;
-            url = config.server + "classes/getBoard";
+            url = getServer() + "classes/getBoard";
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -87,7 +87,7 @@
             return;
         }
         var param = "classId=" + classId;
-        url = config.server + "classes/getBoard";
+        url = getServer() + "classes/getBoard";
         $.ajax({
             type: 'POST',
             url: url,
@@ -134,7 +134,7 @@
     function like(messageId) {
         $.ajax({
             type: 'POST',
-            url: config.server + "classes/likeBoardMessage",
+            url: getServer() + "classes/likeBoardMessage",
             data: "messageId=" + messageId,
             dataType: 'json'
         });
@@ -148,7 +148,7 @@
                 var userName = $.cookie('name');
                 var classId = GetQueryString("classId");
                 var param = "classId=" + classId + "&content=" + text + "&userName=" + userName;
-                var url = config.server + "classes/insertBoardMessage";
+                var url = getServer() + "classes/insertBoardMessage";
                 $.ajax({
                     type: 'POST',
                     url: url,
