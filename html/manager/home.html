@@ -258,7 +258,7 @@
     });
 
     function getNews() {
-        var url = config.server + "teacherinfo/getNews";
+        var url = config.getServer() + "teacherinfo/getNews";
         $.ajax({
             type: 'POST',
             url: url,

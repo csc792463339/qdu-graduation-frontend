@@ -37,7 +37,7 @@
 <script src="../../../js/jquery-weui.js"></script>
 <script>
     $(function () {
-        var url = config.server + "teacherinfo/getNewsById"
+        var url = config.getServer() + "teacherinfo/getNewsById"
         var id = getUrlParam("id");
         var param = "newsId=" + id;
         $.ajax({

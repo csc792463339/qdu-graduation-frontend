@@ -55,7 +55,7 @@
         FastClick.attach(document.body);
     });
 
-    var url = config.server + "manager/teacherInfo";
+    var url = config.getServer() + "manager/teacherInfo";
     $().ready(function () {
         $.ajax({
             type: 'GET',
