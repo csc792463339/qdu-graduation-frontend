@@ -21,35 +21,12 @@
                                                      id="teacherCount"></a> </span></label>
 <table data-toggle="table" class="table table-striped">
     <thead>
-    <th>编号</th>
-    <th>姓名</th>
-    <th>班级</th>
+    <th>习题集名称</th>
+    <th>学生姓名</th>
     <th>提交时间</th>
     <th>得分</th>
     </thead>
     <tbody id="tbody">
-    <tr>
-        <td>01</td>
-        <td>abc</td>
-        <td>java01</td>
-        <td>2018-01-01 10:33:33</td>
-        <td>66</td>
-    </tr>
-    <tr>
-        <td>02</td>
-        <td>abc</td>
-        <td>java01</td>
-        <td>2018-01-01 10:33:33</td>
-        <td>未批改</td>
-    </tr>
-    <tr>
-        <td>01</td>
-        <td>abc</td>
-        <td>java01</td>
-        <td>2018-01-01 10:33:33</td>
-        <td>66</td>
-    </tr>
-
     </tbody>
 </table>
 
@@ -64,13 +41,45 @@
 </body>
 <script src="../../../lib/jquery-2.1.4.js"></script>
 <script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/jquery.cookie.js"></script>
 <script src="../../../lib/config.js"></script>
 <script src="../../../js/jquery-weui.js"></script>
 <script src="../../../js/bootstrap-table.min.js"></script>
 <script>
     $(function () {
         FastClick.attach(document.body);
-    });
 
+        var url = getServer() + "homework/getSubmitStatus";
+        var teacherId = $.cookie('id');
+        var param = "teacherId=" + teacherId;
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: param,
+            dataType: 'json',
+            success: function (res) {
+                if (res.submitStatus.length != 0) {
+                    $(".no-records-found").hide();
+                }
+                jQuery.each(res.submitStatus, function (key, value) {
+                    var score = "";
+                    if (value.score != 0) {
+                        score = value.score;
+                    } else {
+                        score = "未批改";
+                    }
+                    ;
+                    $("#tbody").append(
+                        "<tr>" +
+                        "<td>" + value.homeName + "</td>" +
+                        "<td>" + value.stuName + "</td>" +
+                        "<td>" + value.submitRank + "</td>" +
+                        "<td>" + score + "</td>" +
+                        "</tr>"
+                    )
+                })
+            }
+        });
+    });
 </script>
 </html>

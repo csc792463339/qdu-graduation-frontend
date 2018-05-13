@@ -21,34 +21,12 @@
                                                      id="teacherCount"></a> </span></label>
 <table data-toggle="table" class="table table-striped">
     <thead>
-    <th>编号</th>
+    <th>学号</th>
     <th>姓名</th>
-    <th>班级</th>
-    <th>综合得分</th>
+    <th>平均分</th>
     <th>排名</th>
     </thead>
     <tbody id="tbody">
-    <tr>
-        <td>01</td>
-        <td>abc</td>
-        <td>java01</td>
-        <td>66</td>
-        <td>1</td>
-    </tr>
-    <tr>
-        <td>01</td>
-        <td>abc</td>
-        <td>java01</td>
-        <td>66</td>
-        <td>2</td>
-    </tr>
-    <tr>
-        <td>01</td>
-        <td>abc</td>
-        <td>java01</td>
-        <td>66</td>
-        <td>3</td>
-    </tr>
     </tbody>
 </table>
 
@@ -63,12 +41,38 @@
 </body>
 <script src="../../../lib/jquery-2.1.4.js"></script>
 <script src="../../../lib/fastclick.js"></script>
+<script src="../../../lib/jquery.cookie.js"></script>
 <script src="../../../lib/config.js"></script>
 <script src="../../../js/jquery-weui.js"></script>
 <script src="../../../js/bootstrap-table.min.js"></script>
 <script>
     $(function () {
         FastClick.attach(document.body);
+
+        var url = getServer() + "homework/getStudentRank";
+        var teacherId = $.cookie('id');
+        var param = "teacherId=" + teacherId;
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: param,
+            dataType: 'json',
+            success: function (res) {
+                if (res.submitStatus.length != 0) {
+                    $(".no-records-found").hide();
+                }
+                jQuery.each(res.submitStatus, function (key, value) {
+                    $("#tbody").append(
+                        "<tr>" +
+                        "<td>" + value.stuId + "</td>" +
+                        "<td>" + value.stuName + "</td>" +
+                        "<td>" + value.avgscore + "</td>" +
+                        "<td>" + value.order + "</td>" +
+                        "</tr>"
+                    )
+                })
+            }
+        });
     });
 
 </script>
