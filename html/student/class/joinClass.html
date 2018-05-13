@@ -82,7 +82,7 @@
 
     function searchClass() {
         var classID = $('#searchId').val();
-        var url = config.getServer() + "classes/findClass";
+        var url = getServer() + "classes/findClass";
         $.ajax({
             type: 'POST',
             url: url,
