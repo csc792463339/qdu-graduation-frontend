@@ -108,7 +108,7 @@
         var studentName = $.cookie('name');
         var sutdentId = $.cookie('id');
         var classID = $('#searchId').val();
-        var joinUrl = config.getServer() + "classes/joinClass";
+        var joinUrl = getServer() + "classes/joinClass";
         var param = "classId=" + classID + "&studentId=" + sutdentId + "&studentName=" + studentName;
         $.ajax({
             type: 'POST',
