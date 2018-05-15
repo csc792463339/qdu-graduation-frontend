@@ -80,7 +80,7 @@
                 var obj = JSON.parse(res);
                 if (obj.allHomework.length > 0) {
                     jQuery.each(obj.allHomework, function (key, value) {
-                        questionlist.push("【" + value.homeworkId + "】" + value.questionsId);
+                        questionlist.push("【" + value.homeworkId + "】" + "【"+value.homeworkName+"】" + value.questionsId);
                     })
                     $("#job").select({
                         title: "选择习题集",
@@ -152,7 +152,7 @@
         }
 
         var param = "questionid=" + questionid + "&classlist=" + classlist + "&teacherId=" + teacherId + "&deadline=" + deadline;
-        distributeQuestionUrl = config.server + "homework/distribute";
+        distributeQuestionUrl = getServer() + "homework/distribute";
         $.ajax({
             url: distributeQuestionUrl,
             dataType: "json",

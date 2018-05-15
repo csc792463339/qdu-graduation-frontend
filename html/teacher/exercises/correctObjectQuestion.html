@@ -47,12 +47,6 @@
         </div>
     </div>
     <div class="weui-cell">
-        <div class="weui-cell__hd"><label class="weui-label">试题图片:</label></div>
-        <div class="weui-cell__bd">
-            <input class="weui-input" type="text" id="questionImg" readonly="readonly">
-        </div>
-    </div>
-    <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">试题分值:</label></div>
         <div class="weui-cell__bd">
             <input class="weui-input" type="text" id="questionScore" readonly="readonly">
@@ -74,7 +68,7 @@
     </div>
 </div>
 
-<div class='demos-content-padded'>
+<div class='demos-content-padded' id="submit">
     <a class="weui-btn weui-btn_plain-default" onclick="giveScore();">确定</a>
 </div>
 
@@ -111,6 +105,7 @@
                 if (res.homeworkId == null || res.homeworkId == "") {
                     $("#questionForm").hide();
                     $("#questionTop").show();
+                    $("#submit").hide();
                 } else {
                     $("#questionId").val(res.questionId);
                     $("#userName").val(res.userName);
