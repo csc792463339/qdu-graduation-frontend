@@ -64,8 +64,8 @@
 
 <script>
     $(function () {
-        url1 = config.server + "homework/list";
-        url2 = config.server + "classes/list";
+        url1 = getServer() + "homework/list";
+        url2 = getServer() + "classes/list";
         var teacherId = $.cookie('id');
         var param = "teacherId=" + teacherId;
         var questionlist = new Array();
@@ -152,7 +152,7 @@
         }
 
         var param = "questionid=" + questionid + "&classlist=" + classlist + "&teacherId=" + teacherId + "&deadline=" + deadline;
-        distributeQuestionUrl = config.server + "homework/distribute";
+        distributeQuestionUrl = getServer() + "homework/distribute";
         $.ajax({
             url: distributeQuestionUrl,
             dataType: "json",

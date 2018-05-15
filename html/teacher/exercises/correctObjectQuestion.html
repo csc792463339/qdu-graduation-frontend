@@ -100,7 +100,7 @@
 <script>
     $(function () {
         $("#questionTop").hide();
-        var url = config.server + "teacher/getObject"
+        var url = getServer() + "teacher/getObject"
         var param = "homeworkId=" + getUrlParam("homeworkId");
         $.ajax({
             url: url,
@@ -135,7 +135,7 @@
             alert("请输入分数");
             return false;
         }
-        var url = config.server + "teacher/giveScore";
+        var url = getServer() + "teacher/giveScore";
         var param = "studentId=" + studentId + "&homeworkId=" + homeworkId + "&questionId=" + questionId + "&score=" + score;
         $.ajax({
             url: url,
