@@ -15,12 +15,12 @@
 <div class="weui-tab">
     <div class="weui-tab__bd">
         <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
-            <div>
-                <img src="../../images/bf096b63f6246b6006a8bcfde8f81a4c500fa290.jpg" class="logo"
-                     style="height: 80px;width: 160px;float: left">
-                <div style="float: left;margin-left: 25px;margin-top: 15px"><h1
-                >作业通</h1></div>
-            </div>
+            <!--<div>-->
+                <!--<img src="../../images/bf096b63f6246b6006a8bcfde8f81a4c500fa290.jpg" class="logo"-->
+                     <!--style="height: 80px;width: 160px;float: left">-->
+                <!--<div style="float: left;margin-left: 25px;margin-top: 15px"><h1-->
+                <!--&gt;作业通</h1></div>-->
+            <!--</div>-->
             <div class="swiper-container">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide"><img src="../../images/1.png"/></div>
@@ -273,23 +273,7 @@
         getNews();
     });
 </script>
-<script>
-    $(document)
-        .on("click", "#show-toast", function () {
-            $.toast("做做做！！！", function () {
-                console.log('close');
-            });
-        })
-        .on("click", "#show-toast-forbidden", function () {
-            $.toast("不能啊！！！", "forbidden");
-        })
-        .on("click", "#show-loading", function () {
-            $.showLoading("doing....");
-            setTimeout(function () {
-                $.hideLoading();
-            }, 5000)
-        });
-</script>
+
 <script>
     function getClassInfo() {
         var param = "userid=8";
