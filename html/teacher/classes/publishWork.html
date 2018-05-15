@@ -152,7 +152,7 @@
         }
 
         var param = "questionid=" + questionid + "&classlist=" + classlist + "&teacherId=" + teacherId + "&deadline=" + deadline;
-        distributeQuestionUrl = getServer() + "homework/distribute";
+        distributeQuestionUrl = config.server + "homework/distribute";
         $.ajax({
             url: distributeQuestionUrl,
             dataType: "json",

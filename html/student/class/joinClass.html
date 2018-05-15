@@ -82,7 +82,7 @@
 
     function searchClass() {
         var classID = $('#searchId').val();
-        var url = config.server + "classes/findClass";
+        var url = getServer() + "classes/findClass";
         $.ajax({
             type: 'POST',
             url: url,
@@ -108,7 +108,7 @@
         var studentName = $.cookie('name');
         var sutdentId = $.cookie('id');
         var classID = $('#searchId').val();
-        var joinUrl = config.server + "classes/joinClass";
+        var joinUrl = getServer() + "classes/joinClass";
         var param = "classId=" + classID + "&studentId=" + sutdentId + "&studentName=" + studentName;
         $.ajax({
             type: 'POST',
